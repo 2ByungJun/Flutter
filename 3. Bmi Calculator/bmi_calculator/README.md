@@ -6,4 +6,4 @@ Bmi Calculator
 
 ## Screenshot
 
-![1](https://user-images.githubusercontent.com/50162229/76693985-51bf7300-66b0-11ea-8b1a-816875c5fb3c.gif)
+![bmi_calculator](https://user-images.githubusercontent.com/50162229/76694183-183c3700-66b3-11ea-926f-18904002a5f1.gif)

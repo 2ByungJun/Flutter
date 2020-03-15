@@ -18,7 +18,7 @@ ___
 
 ![Memo memo (1)](https://user-images.githubusercontent.com/50162229/76586963-c4e8ae00-6525-11ea-8150-ccd1a01bd50e.gif)
 
-![1](https://user-images.githubusercontent.com/50162229/76694008-83383e80-66b0-11ea-8fb1-312e644364a6.gif)
+![bmi_calculator](https://user-images.githubusercontent.com/50162229/76694183-183c3700-66b3-11ea-926f-18904002a5f1.gif)
 
 </p>
 
