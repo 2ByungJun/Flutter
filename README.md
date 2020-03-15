@@ -1,5 +1,5 @@
 # **Flutter Trip**
-## Update - 2020.03.14
+### Update - 2020.03.15
 
 ### 😊 **Opening**
 
@@ -18,6 +18,8 @@ ___
 
 ![Memo memo (1)](https://user-images.githubusercontent.com/50162229/76586963-c4e8ae00-6525-11ea-8150-ccd1a01bd50e.gif)
 
+![1](https://user-images.githubusercontent.com/50162229/76694008-83383e80-66b0-11ea-8fb1-312e644364a6.gif)
+
 </p>
 
 ## Project
@@ -26,11 +28,9 @@ ___
     - Day : 2020.03.10
     - Name : my_first_flutter_project
     - Content : 클릭시 숫자 증가하는 action 사용
-    - Screenshots
-
 > 2. Memo memo
 
-    - Day : 2020.03.11 ~ 2020.03.
+    - Day : 2020.03.11 ~ 진행중
     - Name : Memo memo
     - Content : 메모를 편집하여 나만의 노트 제작
 
@@ -41,3 +41,10 @@ ___
         삭제 기능 추가
     - 2020.03.14
         view.dart 생성, 다른 페이지에서도 데이터 활용
+
+> 3. Bmi Calculator
+   
+    - Day : 2020.03.15 ~ 2020.03.15
+    - Name : Bmi Calculator
+    - Content : 비만도를 계산하는 어플리케이션
+    - Book : 오준석의 Flutter 생존 코딩
