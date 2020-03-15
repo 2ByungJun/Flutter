@@ -14,9 +14,9 @@ ___
 
 <p>
 
-![Counting App](https://user-images.githubusercontent.com/50162229/76586991-d631ba80-6525-11ea-8556-b6c4b55c3a7d.PNG)
+![Counting App](https://user-images.githubusercontent.com/50162229/76586991-d631ba80-6525-11ea-8556-b6c4b55c3a7d.PNG) |
 
-![Memo memo (1)](https://user-images.githubusercontent.com/50162229/76586963-c4e8ae00-6525-11ea-8150-ccd1a01bd50e.gif)
+![Memo memo (1)](https://user-images.githubusercontent.com/50162229/76586963-c4e8ae00-6525-11ea-8150-ccd1a01bd50e.gif) |
 
 ![bmi_calculator](https://user-images.githubusercontent.com/50162229/76694183-183c3700-66b3-11ea-926f-18904002a5f1.gif)
 
