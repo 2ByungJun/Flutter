@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.16
+### Update - 2020.03.17
 
 ### 😊 **Opening**
 
@@ -49,3 +49,8 @@ ___
     - Name : Bmi Calculator
     - Content : 비만도를 계산하는 어플리케이션
     - Book : 오준석의 Flutter 생존 코딩
+
+> 4. 오준석의 Flutter 생존코딩
+
+    - Day : 2020.03.17 ~ 진행중
+    - 이론 공부 진행중
