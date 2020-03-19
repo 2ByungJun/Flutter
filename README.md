@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.18
+### Update - 2020.03.19
 
 ### 😊 **Opening**
 
@@ -55,3 +55,7 @@ ___
     - Day : 2020.03.17 ~ 진행중
     - 1. Flutter 환경 구현(2020.03.18)
     - 2. Dart 문법(2020.03.18)
+    - 3. Flutter_Study
+         - p101 Counting_test(2020.03.19)
+         - p113 StatelessWidget(2020.03.19)
+         - p115 StatefulWidget(2020.03.19)
