@@ -63,11 +63,12 @@ ___
          - p210 Complicaated_UI(2020.3.20)
 
 > 5. Kids Course
+
 ![녹화_2020_03_21_15_47_32_297](https://user-images.githubusercontent.com/50162229/77221242-74a7c680-6b8b-11ea-8132-99c4ba60adce.gif)
    
-        - Day : 2020.03.21 ~ 진행중
-        - Name : Kids Course
-        - Content : 어린이집 보육교사를 위한 차량지도 어플리케이션
+    - Day : 2020.03.21 ~ 진행중
+    - Name : Kids Course
+    - Content : 어린이집 보육교사를 위한 차량지도 어플리케이션
 
-        개발일지
-        - 2020.03.21 login.dart 페이지 및 뷰 구현
+    개발일지
+    - 2020.03.21 login.dart 페이지 및 뷰 구현
