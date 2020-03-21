@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final dummyItems = [
-  '',
-  '',
-  ''
+  'https://picsum.photos/200',
+  'https://picsum.photos/201',
+  'https://picsum.photos/202'
 ];
 
 void main() => runApp(MyApp());

@@ -2,15 +2,6 @@
 
 복잡한 UI에 대한 설계
 
-## Getting Started
+> main.dart
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![녹화_2020_03_21_19_40_16_358](https://user-images.githubusercontent.com/50162229/77224734-f3acf700-6bab-11ea-990a-0c7cb0270278.gif)

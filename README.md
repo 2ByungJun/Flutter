@@ -22,13 +22,13 @@ ___
 </p>
 
 ## Project
-> 1. Counting App 
+> 1. Counting App(Flutter Demo App)
     
     - Day : 2020.03.10
     - Name : my_first_flutter_project
     - Content : 클릭시 숫자 증가하는 action 사용
 
-> 2. Memo memo
+> 2. Memo memo(메모메모)
 
     - Day : 2020.03.11 ~ 2020.03.16
     - Name : Memo memo
@@ -44,7 +44,7 @@ ___
     - 2020.03.16
         Write.dart 추가, edit.dart 수정, 마무리
 
-> 3. Bmi Calculator
+> 3. Bmi Calculator(비만도 계산기)
    
     - Day : 2020.03.15 ~ 2020.03.15
     - Name : Bmi Calculator
@@ -61,8 +61,9 @@ ___
          - p113 StatelessWidget(2020.03.19)
          - p115 StatefulWidget(2020.03.19)
          - p210 Complicaated_UI(2020.3.20)
+                - 이미지 추가 수정(2020.3.21)
 
-> 5. Kids Course
+> 5. Kids Course(보육교사 차량지도 APP)
 
 ![녹화_2020_03_21_15_47_32_297](https://user-images.githubusercontent.com/50162229/77221242-74a7c680-6b8b-11ea-8132-99c4ba60adce.gif)
    
