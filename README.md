@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.20
+### Update - 2020.03.21
 
 ### 😊 **Opening**
 
@@ -17,6 +17,7 @@ ___
 ![Counting App](https://user-images.githubusercontent.com/50162229/76586991-d631ba80-6525-11ea-8556-b6c4b55c3a7d.PNG) 
 ![Memo memo (1)](https://user-images.githubusercontent.com/50162229/76586963-c4e8ae00-6525-11ea-8150-ccd1a01bd50e.gif) 
 ![bmi_calculator](https://user-images.githubusercontent.com/50162229/76694183-183c3700-66b3-11ea-926f-18904002a5f1.gif)
+
 
 </p>
 
@@ -60,3 +61,13 @@ ___
          - p113 StatelessWidget(2020.03.19)
          - p115 StatefulWidget(2020.03.19)
          - p210 Complicaated_UI(2020.3.20)
+
+> 5. Kids Course
+![녹화_2020_03_21_15_47_32_297](https://user-images.githubusercontent.com/50162229/77221242-74a7c680-6b8b-11ea-8132-99c4ba60adce.gif)
+   
+        - Day : 2020.03.21 ~ 진행중
+        - Name : Kids Course
+        - Content : 어린이집 보육교사를 위한 차량지도 어플리케이션
+
+        개발일지
+        - 2020.03.21 login.dart 페이지 및 뷰 구현
