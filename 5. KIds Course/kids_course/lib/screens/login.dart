@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kids_course/data/join_or_login.dart';
 import 'package:kids_course/helper/loginbackground.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -8,7 +10,9 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Scaffold(
         body: Stack(
@@ -16,7 +20,9 @@ class AuthPage extends StatelessWidget {
           children: <Widget>[
             CustomPaint(
               size: size,
-              painter: LoginBackground(),
+              painter: LoginBackground(isJoin: Provider
+                  .of<JoinOrLogin>(context)
+                  .isJoin),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,9 +36,23 @@ class AuthPage extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: size.height * 0.10,
+                  height: size.height * 0.03,
                 ),
-                Text("계정이 없다구요?, 여기서 만들어보세요!"),
+                Consumer<JoinOrLogin>(
+                  builder: (context, joinOrLogin, child) =>
+                      GestureDetector(
+                          onTap: () {
+                            joinOrLogin.toggle();
+                          },
+                          child: Text(joinOrLogin.isJoin
+                              ? "회원가입을 누르시면 계정이 만들어집니다."
+                              : "계정이 없으시다구요? 클릭하세요!",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: joinOrLogin.isJoin ? Colors.red : Colors
+                                    .indigo),)),
+                ),
                 Container(
                   height: size.height * 0.05,
                 ),
@@ -42,23 +62,29 @@ class AuthPage extends StatelessWidget {
         ));
   }
 
-  Widget _authButton(Size size) => Positioned(
+  Widget _authButton(Size size) =>
+      Positioned(
         left: size.width * 0.15,
         right: size.width * 0.15,
         bottom: 0,
         child: SizedBox(
           height: 50,
-          child: RaisedButton(
-            child: Text(
-              "로그인",
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            color: Colors.indigo,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-            onPressed: () {
-              if (_formKey.currentState.validate()) {}
-            },
+          child: Consumer<JoinOrLogin>(
+            builder: (context, joinOrLogin, child) =>
+                RaisedButton(
+                  child: Text(
+                    joinOrLogin.isJoin ? "회원가입" :
+                    "로그인",
+                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  ),
+                  color: joinOrLogin.isJoin ? Colors.red : Colors.indigo,
+                  shape:
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {}
+                  },
+                ),
           ),
         ),
       );
@@ -66,11 +92,11 @@ class AuthPage extends StatelessWidget {
   Widget get _logoImage => Expanded(
         // Column 이나 Row 에 쓰이는 것으로, 위에 남는 공간을 다 차지하게 한다.
         child: Padding(
-          padding: const EdgeInsets.only(top: 40, left: 24, right: 24),
+          padding: const EdgeInsets.only(top: 50,bottom: 50, left: 24, right: 24),
           child: FittedBox(
             fit: BoxFit.contain,
             child: CircleAvatar(
-              backgroundImage: NetworkImage("https://picsum.photos/200"),
+              backgroundImage: AssetImage("assets/logo.gif"),
             ),
           ),
         ),
@@ -78,7 +104,7 @@ class AuthPage extends StatelessWidget {
 
   Widget _inputForm(Size size) {
     return Padding(
-      padding: EdgeInsets.all(size.width * 0.05),
+      padding: EdgeInsets.only(left: 30,right: 30,top: 0,bottom: 30),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -86,7 +112,7 @@ class AuthPage extends StatelessWidget {
         elevation: 6,
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 12.0, right: 12, top: 12, bottom: 32),
+              const EdgeInsets.only(left: 12.0, right: 12, top: 12, bottom: 24),
           child: Form(
               key: _formKey, // 상태를 접근하게 해주는 역할
               child: Column(
@@ -122,7 +148,13 @@ class AuthPage extends StatelessWidget {
                   Container(
                     height: 8,
                   ),
-                  Text("패스워드를 잊어버리셨나요?"),
+                  Consumer<JoinOrLogin>(
+                    builder: (context, joinOrLogin, child) =>
+                        Opacity(
+                            opacity: joinOrLogin.isJoin ? 0 : 1,
+                            child: Text("          패스워드를 잊어버리셨나요?",
+                            style: TextStyle(fontWeight: FontWeight.w500),)),
+                  ),
                 ],
               )),
         ),
