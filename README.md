@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.22
+### Update - 2020.03.23
 
 ### 😊 **Opening**
 
@@ -72,3 +72,4 @@ ___
     개발일지
     - 2020.03.21 login.dart 페이지 및 뷰 구현
     - 2020.03.22 login.dart, provider-회원가입 view 구현
+    - 2020.03.23 Firebase 오류로 인한 Flutter 재구성
