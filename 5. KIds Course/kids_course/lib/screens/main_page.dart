@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
 
   MainPage({this.email});
-
   final String email;
 
   @override
@@ -15,6 +15,7 @@ class MainPage extends StatelessWidget {
       body: Container(
         child: Center(
           child: FlatButton(onPressed: (){
+            FirebaseAuth.instance.signOut(); // 로그아웃으로 간다
               }, child: Text("Logout")),
         ),
       ),
