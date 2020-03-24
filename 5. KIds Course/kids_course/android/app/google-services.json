@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "29265666486",
+    "firebase_url": "https://kidscourse-flutter.firebaseio.com",
+    "project_id": "kidscourse-flutter",
+    "storage_bucket": "kidscourse-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29265666486:android:0a3866b3000ff7b6842117",
+        "android_client_info": {
+          "package_name": "com.example.kids_course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29265666486-am259d2du2ovnoaes5hou52br8om84h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ajlxNAEojYbj091zfta_OEZJtbLTGT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29265666486-am259d2du2ovnoaes5hou52br8om84h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

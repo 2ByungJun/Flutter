@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kids_course/data/join_or_login.dart';
 import 'package:kids_course/helper/loginbackground.dart';
 import 'package:kids_course/screens/main_page.dart';
 import 'package:provider/provider.dart';
+import 'package:kids_course/data/join_or_login.dart';
 
 class AuthPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
