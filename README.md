@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.25
+### Update - 2020.03.26
 
 ### 😊 **Opening**
 
@@ -76,3 +76,4 @@ ___
     - 2020.03.24 Firebase 연동 성공, 
                     - 해결 링크 : https://here4you.tistory.com/223
     - 2020.03.25 회원가입, 비밀번호 변경(메일로 전송), 자동 로그인, main_home 추가
+    - 2020.03.26 Flutter study - https://velog.io/@ieed0205
