@@ -36,6 +36,7 @@ android {
         applicationId "com.example.kids_course"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled true // 메서드 에러 해결 추가
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,6 +60,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    // 메서드 에러 해결용 추가 (2)
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

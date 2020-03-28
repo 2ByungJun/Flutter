@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.27
+### Update - 2020.03.28
 
 ### 😊 **Opening**
 
@@ -78,3 +78,7 @@ ___
     - 2020.03.25 회원가입, 비밀번호 변경(메일로 전송), 자동 로그인, main_home 추가
     - 2020.03.26 Flutter study - https://velog.io/@ieed0205
     - 2020.03.27 Complicaated_UI 결합, 로그아웃 아이콘 생성
+    - 2020.03.28 UI 변경
+                 차량지도, 관리 페이지 추가
+                 공지사항 - Memomemo 연결
+                 네비게이션.push 기능 다수 추가

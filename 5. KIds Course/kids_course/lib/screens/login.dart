@@ -70,7 +70,7 @@ class AuthPage extends StatelessWidget {
   void _register(BuildContext context) async {
     final AuthResult result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text);
+            email: _emailController.text, password: _passwordController.text,);
     final FirebaseUser user = result.user;
 
     if (user == null) {
