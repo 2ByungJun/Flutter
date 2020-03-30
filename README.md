@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.03.29
+### Update - 2020.03.30
 
 ### 😊 **Opening**
 
@@ -83,3 +83,4 @@ ___
                  공지사항 - Memomemo 연결
                  네비게이션.push 기능 다수 추가
     - 2020.03.29 Flutter study - https://velog.io/@ieed0205
+    - 2020.03.30 Flutter Method error 해결
