@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kids_course/memoview/memoMain.dart';
+import 'package:kids_course/screens/car_course.dart';
 import 'package:kids_course/screens/ful_page2.dart';
 import 'package:kids_course/screens/ful_page3.dart';
 
@@ -138,7 +139,7 @@ Widget _buildTop(context) {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Page2()),
+                  MaterialPageRoute(builder: (context) => car_courseless()),
                 );
               },
               child: Column(
