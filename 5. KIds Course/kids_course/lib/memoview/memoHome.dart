@@ -19,17 +19,17 @@ class _MemoHomePageState extends State<MemoHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('공지사항',
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+        backgroundColor: Colors.orange,
+      ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 20, top: 40, bottom: 20),
-            child: Container(
-              child: Text('공지사항',
-                  style: TextStyle(fontSize: 36, color: Colors.orange,
-                  fontWeight: FontWeight.bold)),
-              alignment: Alignment.centerLeft,
-            ),
-          ),
           Expanded(child: memoBuilder(context))
         ],
       ),
@@ -98,7 +98,7 @@ class _MemoHomePageState extends State<MemoHomePage> {
             alignment: Alignment.center,
             child: Text(
               '현재 공지사항이 없습니다.\n"공지 추가" 버튼을 눌러 새로운 공지사항을 등록하세요.\n\n\n\n\n\n\n\n\n\n',
-              style: TextStyle(fontSize: 15, color: Colors.deepOrangeAccent,
+              style: TextStyle(fontSize: 15, color: Colors.orange,
               fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -163,13 +163,13 @@ class _MemoHomePageState extends State<MemoHomePage> {
                     ],
                   ),
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 240, 240, 1),
+                    color: Colors.white,
                     border: Border.all(
-                      color: Colors.blue,
-                      width: 1,
+                      color: Colors.orange,
+                      width: 4,
                     ),
                     boxShadow: [
-                      BoxShadow(color: Colors.lightBlue, blurRadius: 3)
+                      BoxShadow(color: Colors.orange, blurRadius: 4)
                     ],
                     borderRadius: BorderRadius.circular(12),
                   )),

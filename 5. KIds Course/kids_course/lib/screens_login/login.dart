@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kids_course/helper/loginbackground.dart';
-import 'package:kids_course/screens/forget_pw.dart';
+import 'package:kids_course/screens_login/forget_pw.dart';
 import 'package:kids_course/screens/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:kids_course/data/join_or_login.dart';

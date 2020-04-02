@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kids_course/memodata/db.dart';
+import 'package:kids_course/memodata/memo.dart';
 import 'package:kids_course/memoview/memoMain.dart';
-import 'package:kids_course/screens/car_course.dart';
-import 'package:kids_course/screens/ful_page2.dart';
-import 'package:kids_course/screens/ful_page3.dart';
+import 'package:kids_course/memoview/memoView.dart';
+import 'package:kids_course/screens_upper/car_course.dart';
+import 'package:kids_course/screens_Page1_2_3/ful_page2.dart';
+import 'package:kids_course/screens_Page1_2_3/ful_page3.dart';
 
 final dummyItems = [
   'https://picsum.photos/200',
@@ -118,7 +122,7 @@ class Page1 extends StatelessWidget {
           children: <Widget>[
             _buildTop(context),
             _buildMiddle(),
-            _buildBottom(),
+            _buildBottom(context),
           ],
         ),
       ],
@@ -217,52 +221,6 @@ Widget _buildTop(context) {
         SizedBox(
           height: 10, // height 프로퍼티에 20을 주어 높이 20만큼 공간을 준다. (Row 의 간격 사이에)
         ),
-//          Row(
-//            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//            // 위젯 사이의 공간을 동일한 비율로 정렬
-//            children: <Widget>[
-//              Column(
-//                children: <Widget>[
-//                  Icon(
-//                    Icons.local_taxi,
-//                    size: 40,
-//                  ),
-//                  Text('택시'),
-//                ],
-//              ),
-//              Column(
-//                children: <Widget>[
-//                  Icon(
-//                    Icons.local_taxi,
-//                    size: 40,
-//                  ),
-//                  Text('블랙'),
-//                ],
-//              ),
-//              Column(
-//                children: <Widget>[
-//                  Icon(
-//                    Icons.local_taxi,
-//                    size: 40,
-//                  ),
-//                  Text('바이크'),
-//                ],
-//              ),
-//              Opacity(
-//                // 투명도 조절 Alt + Enter 로 아무거나 생성 후 Opacity 재구성
-//                opacity: 0.0, // 투명도 max 0 ~ 1, 0.5 : 반투명
-//                child: Column(
-//                  children: <Widget>[
-//                    Icon(
-//                      Icons.local_taxi,
-//                      size: 40,
-//                    ),
-//                    Text('대리'),
-//                  ],
-//                ),
-//              ),
-//            ],
-//          ),
       ],
     ),
   );
@@ -297,20 +255,101 @@ Widget _buildMiddle() {
   );
 }
 // 하단
-Widget _buildBottom() {
-  final items = List.generate(10, (i) {
-    return ListTile(
-      leading: Icon(Icons.notifications_none),
-      title: Text('[이벤트] 이것은 공지사항입니다'),
-    );
-  });
-  return ListView(
-    physics: NeverScrollableScrollPhysics(), // 이 리스트의 스크롤 동작 금지
-    shrinkWrap: true, // 이 리스트가 다른 스크롤 객체 안에 있다면 true로 설정해야 함
-    children: items,
+Widget _buildBottom(BuildContext parentContext) {
+  return FutureBuilder<List<Memo>>(
+      builder: (context, snap)
+  {
+    if (snap.data == null || snap.data.isEmpty) {
+      return Container(
+        padding: EdgeInsets.all(20),
+        alignment: Alignment.center,
+        child: Text(
+          '현재 공지사항이 없습니다.\n상단의 "공지사항"을 클릭해 새로운 공지사항을 등록하세요.\n\n\n\n\n\n\n\n\n\n',
+          style: TextStyle(fontSize: 15, color: Colors.orange,
+              fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: EdgeInsets.all(20),
+      itemCount: snap.data.length,
+      itemBuilder: (context, index) {
+        Memo memo = snap.data[index];
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                parentContext,
+                CupertinoPageRoute(
+                    builder: (context) => ViewPage(id: memo.id)));
+          },
+          child: Container(
+              margin: EdgeInsets.all(8),
+              padding: EdgeInsets.all(15),
+              alignment: Alignment.center,
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        memo.title,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        memo.text,
+                        style: TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        "최종 수정 시간: " + memo.editTime.split('.')[0],
+                        style: TextStyle(fontSize: 11),
+                        textAlign: TextAlign.end,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.orange,
+                  width: 4,
+                ),
+                boxShadow: [
+                  BoxShadow(color: Colors.orange, blurRadius: 4)
+                ],
+                borderRadius: BorderRadius.circular(12),
+              )),
+        );
+      },
+    );},
+    future: loadMemo(),
   );
 }
 
+Future<List<Memo>> loadMemo() async {
+  DBHelper sd = DBHelper();
+  return await sd.memos();
+}
+
+// Page 2
 class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -323,6 +362,7 @@ class Page2 extends StatelessWidget {
   }
 }
 
+// Page 3
 class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

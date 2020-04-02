@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kids_course/data/join_or_login.dart';
-import 'package:kids_course/screens/login.dart';
+import 'package:kids_course/screens_login/login.dart';
 import 'package:kids_course/screens/main_page.dart';
 import 'package:provider/provider.dart';
 

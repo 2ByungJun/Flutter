@@ -20,6 +20,7 @@ class _ViewPageState extends State<ViewPage> {
     _context = context;
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.orange,
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.delete),
