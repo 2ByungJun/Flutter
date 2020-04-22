@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.04.03
+### Update - 2020.04.22
 
 ### 😊 **Opening**
 
@@ -86,3 +86,14 @@ ___
     - 2020.04.02 차량코스지도 (버튼, 플로팅바) 
                  유지보수를 위한 전체적인 Package 개선
                  Mainpage의 하단에 공지사항 view 추가
+    - 2020.04.22 DEBG 리본 제거
+
+> 6. Quiz DjangoDB(비만도 계산기)
+   
+    - Day : 2020.04.22 ~
+    - Name : quizdjgodb
+    - Content : DjangoDB와 연동하여 Flutter 퀴즈 만들기
+    - 인프런 : https://www.inflearn.com/course/%ED%94%8C%EB%9F%AC%ED%84%B0-%EC%9E%A5%EA%B3%A0-%ED%80%B4%EC%A6%88%EC%95%B1-%EC%84%9C%EB%B2%84-%ED%92%80%EC%8A%A4%ED%83%9D/dashboard
+
+    개발일지
+    - 2020.03.22 Flutter UI 구현

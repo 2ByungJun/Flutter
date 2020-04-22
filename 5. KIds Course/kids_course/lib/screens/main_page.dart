@@ -354,6 +354,7 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // 리본 제거
       theme: ThemeData(
         primaryColor: Colors.orange,
       ),
@@ -367,6 +368,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // 리본 제거
       theme: ThemeData(
         primaryColor: Colors.orange,
       ),
