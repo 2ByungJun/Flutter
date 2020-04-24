@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.04.22
+### Update - 2020.04.24
 
 ### 😊 **Opening**
 
