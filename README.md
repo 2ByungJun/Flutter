@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.05.29
+### Update - 2020.05.30
 
 ### 😊 **Opening**
 
@@ -87,6 +87,7 @@ ___
                  유지보수를 위한 전체적인 Package 개선
                  Mainpage의 하단에 공지사항 view 추가
     - 2020.04.22 DEBG 리본 제거
+    - 2020.05.30 DataTable Using
 
 > 6. Quiz DjangoDB(퀴즈 장고DB)
    

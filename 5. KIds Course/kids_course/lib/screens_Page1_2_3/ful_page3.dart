@@ -11,16 +11,33 @@ class _fulpage3State extends State<fulpage3> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            Text("선생님1 : 010-2222-2222"),
-            Text("선생님2 : 010-2222-2222"),
-            Text("선생님3 : 010-2222-2222"),
-            Text("학부모 관리 데이터베이스"),
-            Text("학부모 관리 데이터베이스"),
+        child: DataTable(
+          columns: [
+            DataColumn(label: Text('교사명',
+            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+            )),
+            DataColumn(label: Text('연락처',
+              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+          ],
+          rows: [
+            DataRow(
+                cells: [
+              DataCell(Text('교사1'),
+              ),
+              DataCell(Text('010-3333-3333'),
+              ),
+            ]),
+            DataRow(
+                cells: [
+              DataCell(Text('교사2'),
+              ),
+              DataCell(Text('010-4113-5555'),
+              ),
+            ]),
           ],
         ),
       ),
+
 
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.orange,
