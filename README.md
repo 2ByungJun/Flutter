@@ -22,6 +22,19 @@ ___
 </p>
 
 ## Project
+> 0. James_flutter youtube
+    
+    - Day : 2020.05.31 ~
+    - Name : James_flutter youtube
+    
+    참고 
+    - https://www.youtube.com/channel/UCjpik_Cbt0SeE5kBzao4nqg
+   
+    개발일지
+    - 2020.05.31
+        (1/41) Scaffold
+        (2/41) Container
+
 > 1. Counting App(Flutter Demo App)
     
     - Day : 2020.03.10
