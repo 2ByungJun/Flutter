@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.05.30
+### Update - 2020.05.31
 
 ### 😊 **Opening**
 
@@ -34,6 +34,7 @@ ___
     - 2020.05.31
         (1/41) Scaffold
         (2/41) Container
+        (3/41) Text
 
 > 1. Counting App(Flutter Demo App)
     
