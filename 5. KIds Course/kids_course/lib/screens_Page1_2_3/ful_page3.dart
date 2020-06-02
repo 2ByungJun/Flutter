@@ -11,47 +11,94 @@ class _fulpage3State extends State<fulpage3> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
-        child: DataTable(
-          columns: [
-            DataColumn(
-                label: Text(
-              '교사명',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )),
-            DataColumn(
-                label: Text(
-              '연락처',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )),
-            DataColumn(
-                label: Text(
-              '연락',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )),
-          ],
-          rows: [
-            DataRow(cells: [
-              DataCell(
-                Text('교사1'),
-              ),
-              DataCell(
-                Text('010-3333-3333'),
-              ),
-              DataCell(
-                Text('아이콘'),
-              ),
-            ]),
-            DataRow(cells: [
-              DataCell(
-                Text('교사2'),
-              ),
-              DataCell(
-                Text('010-4113-5555'),
-              ),
-              DataCell(
-                Text('아이콘'),
-              ),
-            ]),
+        child: Column(
+          children: <Widget>[
+            DataTable(
+              columns: [
+                DataColumn(
+                    label: Text(
+                  '교사명',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )),
+                DataColumn(
+                    label: Text(
+                  '연락처',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )),
+                DataColumn(
+                    label: Text(
+                  '연락',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )),
+              ],
+              rows: [
+                DataRow(cells: [
+                  DataCell(
+                    Text('교사1'),
+                  ),
+                  DataCell(
+                    Text('010-3333-3333'),
+                  ),
+                  DataCell(
+                      Icon(Icons.call),
+                  ),
+                ]),
+                DataRow(cells: [
+                  DataCell(
+                    Text('교사2'),
+                  ),
+                  DataCell(
+                    Text('010-4113-5555'),
+                  ),
+                  DataCell(
+                    Icon(Icons.call),
+                  ),
+                ]),
+              ],
+            ),
+            DataTable(
+              columns: [
+                DataColumn(
+                    label: Text(
+                      '아이명',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+                DataColumn(
+                    label: Text(
+                      '연락처',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+                DataColumn(
+                    label: Text(
+                      '연락',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+              ],
+              rows: [
+                DataRow(cells: [
+                  DataCell(
+                    Text('아이1'),
+                  ),
+                  DataCell(
+                    Text('010-3333-3333'),
+                  ),
+                  DataCell(
+                    Icon(Icons.call),
+                  ),
+                ]),
+                DataRow(cells: [
+                  DataCell(
+                    Text('아이2'),
+                  ),
+                  DataCell(
+                    Text('010-4113-5555'),
+                  ),
+                  DataCell(
+                    Icon(Icons.call),
+                  ),
+                ]),
+              ],
+            ),
           ],
         ),
       ),
