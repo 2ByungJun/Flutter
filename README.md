@@ -38,6 +38,8 @@ ___
     - 2020.06.03
         (4~8/41) Widgets
         (~10/41) Button
+        (11/41)  Navigator
+        (12/41)  Navigator_data
 
 > 1. Counting App(Flutter Demo App)
     
