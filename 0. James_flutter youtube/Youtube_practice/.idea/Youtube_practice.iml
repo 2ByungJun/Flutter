@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/f1_tutorial_scaffold/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/f1_tutorial_scaffold/build" />
+      <excludeFolder url="file://$MODULE_DIR$/f2_tutorial_container/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/f2_tutorial_container/build" />
+      <excludeFolder url="file://$MODULE_DIR$/f3_tutorial_text/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/f3_tutorial_text/build" />
+      <excludeFolder url="file://$MODULE_DIR$/f8_tutorial_widget/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/f8_tutorial_widget/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

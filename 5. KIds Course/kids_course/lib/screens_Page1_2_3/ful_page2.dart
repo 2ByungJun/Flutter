@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import 'mapView.dart';
 
 class fulpage2 extends StatefulWidget {
@@ -39,65 +38,69 @@ class _fulpage2State extends State<fulpage2> {
     return Scaffold(
       // Body
       body: Container(
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text("   등원",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.orange),),
-                  Switch(
-                    inactiveThumbColor: Colors.orange,
-                    value: isSwitched,
-                    onChanged: (value) {
-                      setState(() {
-                        isSwitched = value;
-                      });
-                    },
-                    activeTrackColor: Colors.grey,
-                    activeColor: Colors.indigoAccent,
-                  ),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Text("   등원", style: TextStyle(fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange),),
+                Switch(
+                  inactiveThumbColor: Colors.orange,
+                  value: isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+                    });
+                  },
+                  activeTrackColor: Colors.grey,
+                  activeColor: Colors.indigoAccent,
+                ),
 
-                  Text("   하원",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.indigoAccent),),
+                Text("   하원", style: TextStyle(fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigoAccent),),
 
-                ],
-              ),
+              ],
+            ),
 
-              Stepper(
-                currentStep: this.current_step,
-                steps: my_steps,
-                type: StepperType.vertical,
-                onStepTapped: (step) {
-                  setState(() {
-                    current_step = step;
-                  });
-                  print("onStepTapped : " + step.toString());
-                },
-                onStepCancel: () {
-                  setState(() {
-                    if (current_step > 0) {
-                      current_step = current_step - 1;
-                    } else {
-                      current_step = 0;
-                    }
-                  });
-                  print("onStepCancel : " + current_step.toString());
-                },
-                onStepContinue: () {
-                  setState(() {
-                    if (current_step < my_steps.length - 1) {
-                      current_step = current_step + 1;
-                    } else {
-                      current_step = 0;
-                    }
-                  });
-                  print("onStepContinue : " + current_step.toString());
-                },
-              ),
-            ],
-          ),
+            Stepper(
+              currentStep: this.current_step,
+              steps: my_steps,
+              type: StepperType.vertical,
+              onStepTapped: (step) {
+                setState(() {
+                  current_step = step;
+                });
+                print("onStepTapped : " + step.toString());
+              },
+              onStepCancel: () {
+                setState(() {
+                  if (current_step > 0) {
+                    current_step = current_step - 1;
+                  } else {
+                    current_step = 0;
+                  }
+                });
+                print("onStepCancel : " + current_step.toString());
+              },
+              onStepContinue: () {
+                setState(() {
+                  if (current_step < my_steps.length - 1) {
+                    current_step = current_step + 1;
+                  } else {
+                    current_step = 0;
+                  }
+                });
+                print("onStepContinue : " + current_step.toString());
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.orange,
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => mapview()),
@@ -111,5 +114,4 @@ class _fulpage2State extends State<fulpage2> {
       ),
     );
   }
-
 }
