@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.06.03
+### Update - 2020.06.04
 
 ### 😊 **Opening**
 
@@ -41,6 +41,8 @@ ___
         (11/41)  Navigator
         (12/41)  Navigator_data
         (13/41)  CustomScroll & SliverScroll
+    - 2020.06.04
+        (17/41)  Kakao 주소찾기
 
 > 1. Counting App(Flutter Demo App)
     
