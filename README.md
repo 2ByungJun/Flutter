@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.06.05
+### Update - 2020.06.06
 
 ### 😊 **Opening**
 
@@ -32,22 +32,22 @@ ___
    
     개발일지
     - 2020.05.31
-        (1/41) Scaffold
-        (2/41) Container
-        (3/41) Text
+        (1/41) Scaffold + README
+        (2/41) Container + README
+        (3/41) Text + README
     - 2020.06.03
-        (4~8/41) Widgets
-        (~10/41) Button
-        (11/41)  Navigator
-        (12/41)  Navigator_data
-        (13/41)  CustomScroll & SliverScroll
+        (4~8/41) Widgets + README
+        (~10/41) Button + README
+        (11/41)  Navigator + README
+        (12/41)  Navigator_data + README
+        (13/41)  CustomScroll & SliverScroll + README
     - 2020.06.04
         (17/41)  Kakao 주소찾기
 
 > 0. James_flutter/youtube
 
-    - [2020.06.04] f1 - StatefulWidget
-    - [2020.06.05] f2 - App Design
+    - [2020.06.04] f1 - StatefulWidget + README
+    - [2020.06.05] f2 - App Design + [06.06]README
 
 
 ## Project
