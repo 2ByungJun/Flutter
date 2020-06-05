@@ -21,8 +21,8 @@ ___
 
 </p>
 
-## Project
-> 0. James_flutter youtube
+## Study
+> 0. James_flutter/youtube
     
     - Day : 2020.05.31 ~
     - Name : James_flutter youtube
@@ -44,6 +44,12 @@ ___
     - 2020.06.04
         (17/41)  Kakao 주소찾기
 
+> 0. James_flutter/youtube
+
+    - [2020.06.05] f1 
+
+
+## Project
 > 1. Counting App(Flutter Demo App)
     
     - Day : 2020.03.10
