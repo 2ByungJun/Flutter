@@ -116,10 +116,12 @@ class _car_courseState extends State<car_course> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.orange,
         onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => mapview()),
-          );
+          setState(() {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => mapview()),
+            );
+          });
         },
         tooltip: '주소지 추가',
         label: Text('주소지 추가',
