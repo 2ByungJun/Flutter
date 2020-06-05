@@ -46,7 +46,8 @@ ___
 
 > 0. James_flutter/youtube
 
-    - [2020.06.05] f1 
+    - [2020.06.04] f1 - StatefulWidget
+    - [2020.06.05] f2 - App Design
 
 
 ## Project
