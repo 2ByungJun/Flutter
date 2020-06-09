@@ -64,7 +64,9 @@ class _MainPageState extends State<MainPage> {
         ],
         backgroundColor: Colors.orange,
       ),
+
       body: _pages[_index],
+
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {

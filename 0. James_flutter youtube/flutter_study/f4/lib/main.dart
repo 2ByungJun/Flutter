@@ -56,12 +56,12 @@ class _MyAppState extends State<MyApp> {
         ),
         itemBuilder: (BuildContext bc, int index) {
           return GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => MyApp2(),
-            )),
+//            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+//              builder: (context) => MyApp2(),
+//            )),
             child: Card(
               child: Container(
-                color: Colors.red,
+                //color: Colors.red,
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
                       child: Icon(Icons.more_horiz),
                     ),
                     Container(
+                      color: Colors.pink[200],
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute<void>(
@@ -88,21 +89,22 @@ class _MyAppState extends State<MyApp> {
                             width: 70.0,
                             height: 70.0,
                             decoration: BoxDecoration(
-                                //color: Colors.pink,
+                                color: Colors.blue,
                                 borderRadius: BorderRadius.circular(70.0),
                                 image: DecorationImage(
-                                  image: NetworkImage(imageUrlByKey(index)),
+                                  image: NetworkImage(
+                                      "https://cdn.pixabay.com/photo/2020/06/01/07/16/pieris-rapae-5245438__340.jpg"),
 //                                    image: NetworkImage(
 //                                      "https://cdn.pixabay.com/photo/2020/06/01/07/16/pieris-rapae-5245438__340.jpg",
 //                                    ),
-//                                    fit: BoxFit.cover // 가로와 높이에 따라 정비율로 늘려준다. , 높이만 fitHeight
+                                      fit: BoxFit.cover // 가로와 높이에 따라 정비율로 늘려준다. , 높이만 fitHeight
                                 )),
                           ),
                         ),
                       ),
                     ),
                     Container(
-                      color: Colors.purple,
+                      color: Colors.purple[200],
                       padding: EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 10.0,
@@ -190,6 +192,12 @@ class MyApp3 extends StatelessWidget {
         title: Text("Page Hero"),
         backgroundColor: Colors.green[200],
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        backgroundColor: Colors.red[200],
+      ),
+
       body: GestureDetector(
         onTap: () {
           Navigator.pop(context);
@@ -208,7 +216,8 @@ class MyApp3 extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(70.0),
                       image: DecorationImage(
-                        image: NetworkImage(imageUrl),
+                        image: NetworkImage(
+                            "https://cdn.pixabay.com/photo/2020/06/01/07/16/pieris-rapae-5245438__340.jpg"),
                         fit: BoxFit.cover,
                       ),
                     ),
