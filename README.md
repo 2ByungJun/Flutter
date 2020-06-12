@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.06.09
+### Update - 2020.06.12
 
 ### 😊 **Opening**
 
@@ -50,6 +50,7 @@ ___
     - [2020.06.05] f2 - App Design + [06.06]README
     - [2020.06.06] f3 - Animation
     - [2020.06.09] f4,f4_herotest : Hero Test 및 실습
+    - [2020.06.12] f4 수정
 
 
 ## Project
