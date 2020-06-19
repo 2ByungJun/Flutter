@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class MyApp2 extends StatefulWidget {
   final List data;
@@ -34,6 +35,10 @@ class _MyApp2State extends State<MyApp2> {
               ));
         },
       ),
+//    body: WebviewScaffold(
+//      appBar: AppBar(title: Text("웹뷰 타이틀"),),
+//      url: "http://172.30.1.33:3000/admin",
+//    ),
     );
   }
 }

@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'Conn.dart';
 import 'myApp2.dart';
 import 'myApp3.dart';
 
 void main() => runApp(MaterialApp(
-      home: MyApp(),
+      home: Conn(),
     ));
 
 class MyApp extends StatefulWidget {
@@ -22,8 +22,13 @@ class _MyAppState extends State<MyApp> {
   // 사용하기 위해선 Future를 사용해야한다.
   List value;
   Future<List> fetch() async {
-    String _url = "http://192.168.0.19:3000/"; // _는 private
-    http.Response _data = await http.get(_url); // "문자열" -- > 문자열 // RES
+    String _url = "http://172.30.1.29:3000/admin/flutter/main"; // _는 private
+    http.Response _data = await http.get(
+      _url,
+      headers: {"check":"ㅇㅇㅇ"}
+    ); // "문자열" -- > 문자열 // RES
+    print("@@@@@@@@@@@@");
+    print(_data.body);
     return json.decode(_data.body);
   }
 
@@ -172,6 +177,7 @@ class _MyAppState extends State<MyApp> {
 
 Route _createRoute(List data) {
   return PageRouteBuilder(
+    barrierColor: Colors.blue[200],
     pageBuilder: (context, animation, secondaryAnimation) => MyApp2(data),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(1.0, 1.0);

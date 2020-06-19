@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.06.13
+### Update - 2020.06.19
 
 ### 😊 **Opening**
 
@@ -52,6 +52,7 @@ ___
     - [2020.06.09] f4,f4_herotest : Hero Test 및 실습
     - [2020.06.12] f4 수정
     - [2020.06.13] f5 - RoutePaging, Node.js-data다루기
+    - [2020.06.19] f5 - Conn HTTP x Node.js, MySQL
 
 
 ## Project

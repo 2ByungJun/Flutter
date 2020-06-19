@@ -14,27 +14,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String imageUrlByKey(int key) {
-    return "https://picsum.photos/300/300?image=${key + 100}";
-  }
 
   List value;
-
   // Future -> 동기/비동기
   // 사용하기 위해선 Future를 사용해야한다.
   Future<List> fetch() async {
-    String _url = "http://172.30.1.36:3000/"; // _는 private
+    String _url = "http://172.30.1.33:3000/"; // _는 private
     http.Response _data = await http.get(_url); // "문자열" -- > 문자열 // RES
     return json.decode(_data.body);
   }
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2),() async {
+    Future.microtask(() async {
       this.value = await this.fetch();
       setState(() {}); // 한번 꼭 돌려준다.
       print(value);
-    });
+  });
     super.initState();
   }
 
@@ -48,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(
         title: Text("메인"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[200],
         centerTitle: true,
         elevation: 0.0,
         actions: <Widget>[
@@ -181,9 +177,35 @@ class _MyAppState extends State<MyApp> {
 //            ),
     body: FutureBuilder(
       future: this.fetch(),
-      builder: (BuildContext context, AsyncSnapshot snap){
+      builder: (BuildContext context, AsyncSnapshot<List> snap){
         if(!snap.hasData) return CircularProgressIndicator();
-        return Text(snap.data.toString());
+        return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0
+            ),
+            itemCount: snap.data.length,
+            itemBuilder: (BuildContext context, int index){
+              return GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MyApp2(data: snap.data[index],),
+                  )),
+                child: GridTile(
+                  child: Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      image: DecorationImage(
+                        image: NetworkImage(snap.data[index]['img'].toString()),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            });
       },
     ),
     );
@@ -191,6 +213,12 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyApp2 extends StatefulWidget {
+
+  final dynamic data; // final : 변하지 않는 상수, 할당 된 후에 변하지 않는 것
+  const MyApp2({@required this.data}) : assert(data != null); // const : 할당 받는 시점부터 상수인 것
+  // assert 에러처리 : null 일 경우
+  // @required : 데이터값이 null 경우 에러 표시
+
   @override
   _MyApp2State createState() => _MyApp2State();
 }
@@ -198,6 +226,7 @@ class MyApp2 extends StatefulWidget {
 class _MyApp2State extends State<MyApp2> {
   @override
   Widget build(BuildContext context) {
+    print(widget.data);
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(
