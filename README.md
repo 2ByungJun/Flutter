@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.06.19
+### Update - 2020.06.20
 
 ### 😊 **Opening**
 
@@ -53,6 +53,7 @@ ___
     - [2020.06.12] f4 수정
     - [2020.06.13] f5 - RoutePaging, Node.js-data다루기
     - [2020.06.19] f5 - Conn HTTP x Node.js, MySQL
+    - [2020.06.20] f5 - Conn HTTP x Node.js, MySQL 이론정리
 
 
 ## Project

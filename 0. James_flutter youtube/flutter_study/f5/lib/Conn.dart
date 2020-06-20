@@ -10,7 +10,7 @@ class Conn extends StatefulWidget {
 
 class _ConnState extends State<Conn> {
 
-  final String _url = "http://172.30.1.29:3000";
+  final String _url = "http://192.168.0.4:3000";
 
   List<DataModel> datas;
 
