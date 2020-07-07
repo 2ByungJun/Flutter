@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:f5/SocketPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,7 +9,7 @@ import 'myApp2.dart';
 import 'myApp3.dart';
 
 void main() => runApp(MaterialApp(
-      home: Conn(),
+      home: SocketPage(),
     ));
 
 class MyApp extends StatefulWidget {
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   // 사용하기 위해선 Future를 사용해야한다.
   List value;
   Future<List> fetch() async {
-    String _url = "http://192.168.0.4:3000/admin/flutter/main"; // _는 private
+    String _url = "http://192.168.2.132:3000/admin/flutter/main"; // _는 private
     http.Response _data = await http.get(
       _url,
       headers: {"check":"aaa"}
