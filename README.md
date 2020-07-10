@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.07.07
+### Update - 2020.07.10
 
 ### 😊 **Opening**
 
@@ -56,6 +56,7 @@ ___
     - [2020.06.20] f5 - Conn HTTP x Node.js, MySQL 이론정리
 
     - [2020.07.07] f7 - 로그인, 회원가입 페이지
+    - [2020.07.10] f6 - SOCKET을 이용한 Create, Delete x Airtable x Node.js
 
 
 ## Project
