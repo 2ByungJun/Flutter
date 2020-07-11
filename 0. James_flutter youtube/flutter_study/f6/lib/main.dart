@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _url = "http://172.30.1.59:5000";
+  final _url = "http://192.168.0.14:5000";
   IO.Socket socket;
 
   Future<List> fetch() async {
@@ -24,10 +24,6 @@ class _MyAppState extends State<MyApp> {
     List<dynamic> _resBody = json.decode(_res.body);
     print(_resBody);
     return _resBody;
-  }
-
-  Future<bool> createFetch({@required String name, @required int age}) async{
-
   }
 
   @override
@@ -45,8 +41,7 @@ class _MyAppState extends State<MyApp> {
             'transports': ['websocket'], // 순수 소켓을 쓰겠다.
             'autoConnect': false, // 소켓은 계속 연결은 시도하게 한다.
           }
-      )
-        ..connect();
+      )..connect();
 
       /** 받는 경우 **/
       socket.on("check", (data) => print(data));
@@ -54,6 +49,7 @@ class _MyAppState extends State<MyApp> {
       socket.on("name", (data) => print(data));
       socket.on("age", (data) => print(data));
       socket.on("select", (data) => print(data));
+      socket.on("update", (data) => print(data));
       super.initState();
     });
   }
@@ -72,9 +68,32 @@ class _MyAppState extends State<MyApp> {
                 itemCount: snap.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    onTap: () {
-                      socket.emit("select", snap.data[index]['id']);
+                    onTap: (){
+                      socket.emit("update", snap.data[index]['id']);
                       setState(() {});
+                    },
+                    onLongPress: () {
+                      showDialog(context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text("삭제하시겠어요?"),
+                            content: Text("삭제하시려면 확인을 눌러주세요."),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("확인"),
+                                onPressed: (){
+                                  socket.emit("select", snap.data[index]['id']);
+                                    Navigator.pop(context,"확인");
+                                    setState(() {});
+                                  },
+                              ),
+                              FlatButton(
+                                child: Text("취소"),
+                                onPressed: (){
+                                  Navigator.pop(context, "취소");
+                                },
+                              )
+                            ],
+                          ));
                     },
                     leading: Icon(Icons.access_time),
                     title: Text(snap.data[index]['fields']['Name'].toString()),
@@ -95,25 +114,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-//
-//class Create extends StatefulWidget {
-//  @override
-//  _CreateState createState() => _CreateState();
-//}
-//
-//class _CreateState extends State<Create> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text("생성"),
-//      ),
-//
-//      body: Column(
-//        children: <Widget>[
-//
-//        ],
-//      )
-//    );
-//  }
-//}

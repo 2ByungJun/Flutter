@@ -9,6 +9,8 @@ class loginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+            /***** 상단부 *****/
             Container(
               child: Text(
                 "키즈코스",
@@ -28,6 +30,8 @@ class loginPage extends StatelessWidget {
                 ),
               ),
             ),
+
+            /***** 로고 *****/
             Container(
                 margin: EdgeInsets.all(20.0),
                 padding: EdgeInsets.all(10.0),
@@ -39,44 +43,50 @@ class loginPage extends StatelessWidget {
                 child: ClipOval(
                   child: Image.asset("images/logo.gif", fit: BoxFit.cover),
                 )),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 300,
-                  height: 50,
-                  margin: EdgeInsets.all(5.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "ID",
-                        icon: Icon(Icons.account_circle,
-                        color: Colors.orange[400],
-                        size: 40.0
-                        )
+
+            /***** InputBox *****/
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 300,
+                    height: 50,
+                    margin: EdgeInsets.all(5.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "ID",
+                          icon: Icon(Icons.account_circle,
+                          color: Colors.orange[400],
+                          size: 40.0
+                          )
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: 300,
-                  height: 50,
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '패스워드',
-                        icon: Icon(Icons.vpn_key,
-                        color: Colors.orange[400],
-                        size: 40.0
-                        )
+                  Container(
+                    width: 300,
+                    height: 50,
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: '패스워드',
+                          icon: Icon(Icons.vpn_key,
+                          color: Colors.orange[400],
+                          size: 40.0
+                          )
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
 
+            /***** 버튼(로그인&회원가입) *****/
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -118,6 +128,8 @@ class loginPage extends StatelessWidget {
                 ),
               ],
             ),
+
+            /***** 하단부 *****/
             Container(
               margin: EdgeInsets.all(20.0),
               child: Text(
