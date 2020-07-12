@@ -4,15 +4,18 @@ import 'package:kids_course/data/join_or_login.dart';
 import 'package:kids_course/screens_login/login.dart';
 import 'package:kids_course/screens/main_page.dart';
 import 'package:provider/provider.dart';
+import 'package:kids_course/test.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MyApp(
+));
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false, // 리본 제거
-      home: Splash(),
+      home: Test(),
     );
   }
 }

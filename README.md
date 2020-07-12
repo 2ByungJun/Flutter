@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.07.11
+### Update - 2020.07.12
 
 ### 😊 **Opening**
 
@@ -58,6 +58,8 @@ ___
     - [2020.07.07] f7 - 로그인, 회원가입 페이지
     - [2020.07.10] f6 - SOCKET을 이용한 Create, Delete x Airtable x Node.js
     - [2020.07.11] f6 - update
+                   f7 - Weight 해결 SingleChildScrollView()
+    - [2020.07.12] f8 - FCM 단방향 전송
 
 
 ## Project

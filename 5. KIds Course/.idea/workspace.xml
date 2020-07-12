@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0905ff7e-9e05-4ad0-87b0-ae8b11a0cda7" name="Default Changelist" comment="" />
+    <list default="true" id="0905ff7e-9e05-4ad0-87b0-ae8b11a0cda7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f6/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f6/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/register.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../0. James_flutter youtube/flutter_study/f7/lib/register.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,7 +21,7 @@
   <component name="ProjectId" id="1ckDY5xHw9QtSFa7loJcls41L09" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/kids_course" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -47,7 +54,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

@@ -29,6 +29,9 @@ dependencies:
   cloud_firestore: ^0.12.11
   sqflite:
   path:
+  firebase_messaging: ^6.0.9
+  vibration: ^1.4.0
+
 
 dev_dependencies:
   flutter_test:
