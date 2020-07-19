@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.07.12
+### Update - 2020.07.19
 
 ### 😊 **Opening**
 
@@ -60,6 +60,7 @@ ___
     - [2020.07.11] f6 - update
                    f7 - Weight 해결 SingleChildScrollView()
     - [2020.07.12] f8 - FCM 단방향 전송
+    - [2020.07.19] f9 - Auto Login
 
 
 ## Project
@@ -141,3 +142,8 @@ ___
 
     개발일지
     - 2020.03.22 Flutter UI 구현
+
+> P. Kids Course(키즈코스)
+
+  -  Start : 2020.07.19
+  -  

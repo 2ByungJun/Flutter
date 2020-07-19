@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:vibration/vibration.dart';
 import 'package:http/http.dart' as http;
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -51,6 +51,7 @@ class _FCMTestState extends State<FCMTest> {
       });
 
       _firebaseMessaging.configure(
+        /** 앱이 실행중인 경우 **/
         onMessage: (Map<String, dynamic> message) async {
           Vibration.vibrate(duration: 1000, amplitude: 128);
           setState(() {
@@ -58,6 +59,8 @@ class _FCMTestState extends State<FCMTest> {
           });
           print("onMessage: $message");
         },
+
+        /** 앱이 완전히 종료된 경우 **/
         onLaunch: (Map<String, dynamic> message) async {
           Vibration.vibrate(duration: 1000, amplitude: 128);
           setState(() {
@@ -65,6 +68,8 @@ class _FCMTestState extends State<FCMTest> {
           });
           print("onLaunch: $message");
         },
+
+        /** 앱이 닫혀있지만 백그라운드로 동작중인 경우 **/
         onResume: (Map<String, dynamic> message) async {
           Vibration.vibrate(duration: 1000, amplitude: 128);
           setState(() {
@@ -107,14 +112,22 @@ class _FCMTestState extends State<FCMTest> {
           Text(result),
 
           RaisedButton(
-            child: Text("메세지 보내기"),
+            child: Text("123"),
             onPressed:() async{
-              await http.get(_url);
-              await Firestore.instance.collection('').add(
-                {
-                  'message': 'Hello world!'
-                }
-              );
+              //              await http.get(_url/sended);
+              final http.Response _res = await http.post('$_url/target', body: {"id": "123", "targetId":"456", "des": "123이 456에게"});
+              final List<bool> _resultCheck = json.decode(_res.body);
+              if (!_resultCheck[0]) return;
+            },
+          ),
+
+          RaisedButton(
+            child: Text("456"),
+            onPressed:() async{
+//              await http.get(_url + '/sended/1234');
+              await http.post('$_url/target', body: {"id": "456", "targetId":"123", "des": "123이 456에게"});
+//              final List<bool> _resultCheck = json.decode(_res.body);
+//              if (!_resultCheck[0]) return;
             },
           )
 
