@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pkidscoures/TeacherView/AttendView.dart';
+import 'package:pkidscoures/TeacherView/PageManager.dart';
 
 class LoginRegisterView extends StatefulWidget {
   @override
@@ -179,7 +179,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            AttendView()), (route) => false);
+                            PageManagerView()), (route) => false);
                   },
                 ),
               ),

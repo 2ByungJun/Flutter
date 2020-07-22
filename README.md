@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.07.19
+### Update - 2020.07.22
 
 ### 😊 **Opening**
 
@@ -54,14 +54,12 @@ ___
     - [2020.06.13] f5 - RoutePaging, Node.js-data다루기
     - [2020.06.19] f5 - Conn HTTP x Node.js, MySQL
     - [2020.06.20] f5 - Conn HTTP x Node.js, MySQL 이론정리
-
     - [2020.07.07] f7 - 로그인, 회원가입 페이지
     - [2020.07.10] f6 - SOCKET을 이용한 Create, Delete x Airtable x Node.js
     - [2020.07.11] f6 - update
                    f7 - Weight 해결 SingleChildScrollView()
     - [2020.07.12] f8 - FCM 단방향 전송
     - [2020.07.19] f9 - Auto Login
-
 
 ## Project
 > 1. Counting App(Flutter Demo App)
@@ -146,4 +144,4 @@ ___
 > P. Kids Course(키즈코스)
 
   -  Start : 2020.07.19
-  -  
+  -  [2020.07.22] : UI
