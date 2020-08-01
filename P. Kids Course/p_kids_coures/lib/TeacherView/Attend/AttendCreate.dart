@@ -1,23 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pkidscoures/SideBar/sidebar_layout.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
-class LoginRegisterView extends StatefulWidget {
+class AttendCreate extends StatefulWidget {
   @override
-  _LoginRegisterViewState createState() => _LoginRegisterViewState();
+  _AttendCreateState createState() => _AttendCreateState();
 }
 
-class _LoginRegisterViewState extends State<LoginRegisterView> {
+class _AttendCreateState extends State<AttendCreate> {
   List<String> _label = ["달님반", "햇님반", "별님반"];
   String _selectedLabel;
 
-  final TextEditingController id = TextEditingController();
-  final TextEditingController pw = TextEditingController();
-  final TextEditingController name = TextEditingController();
+  final TextEditingController babyNm = TextEditingController();
+  final TextEditingController parentsNm = TextEditingController();
   final TextEditingController phone = TextEditingController();
 
   @override
@@ -25,9 +22,8 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
     Work _work = Provider.of<Work>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("키즈코스 회원가입",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        title: Text("원아 계정 등록",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
         backgroundColor: Colors.deepOrange,
         centerTitle: true,
       ),
@@ -37,19 +33,6 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
-              /***** 상단부 *****/
-              Container(
-                margin: EdgeInsets.all(20.0),
-                child: Text(
-                  "보육교사님 환영합니다!",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.deepOrange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
               /***** InputBox *****/
               Card(
                 margin: EdgeInsets.all(10.0),
@@ -62,28 +45,11 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                         height: 50,
                         margin: EdgeInsets.all(5.0),
                         child: TextField(
-                          controller: id,
+                          controller: babyNm,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "ID",
+                              labelText: "이름",
                               icon: Icon(Icons.account_circle,
-                                  color: Colors.orange[400],
-                                  size: 30.0
-                              )
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 300,
-                        height: 50,
-                        margin: EdgeInsets.all(5.0),
-                        child: TextField(
-                          controller: pw,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "비밀번호",
-                              icon: Icon(Icons.vpn_key,
                                   color: Colors.orange[400],
                                   size: 30.0
                               )
@@ -96,10 +62,10 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                         height: 50,
                         margin: EdgeInsets.all(5.0),
                         child: TextField(
-                          controller: name,
+                          controller: parentsNm,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "이름",
+                              labelText: "학부모성함",
                               icon: Icon(Icons.person,
                                   color: Colors.orange[400],
                                   size: 30.0
@@ -147,8 +113,8 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                                 },
                                 items: _label.map((label){
                                   return DropdownMenuItem(
-                                   child: new Text(label),
-                                   value: label,
+                                    child: new Text(label),
+                                    value: label,
                                   );
                                 }).toList(),
                               ),
@@ -178,7 +144,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                 margin: EdgeInsets.all(5.0),
                 child: RaisedButton(
                   child: Text(
-                    "회원가입",
+                    "원아등록",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.white,
@@ -187,15 +153,15 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                   ),
                   color: Colors.deepOrange,
                   onPressed: () async {
-                    await http.post( _work.url + '/teacherCreate',
-                        body: {"Id":id.text,
-                              "Password":pw.text,
-                              "Name":name.text,
-                              "Phone":phone.text,
-                              "Label":_selectedLabel});
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            SideBarLayout()), (route) => false);
+                    await http.post( _work.url + '/babyCreate',
+                        body: {
+                          "BabyName":babyNm.text,
+                          "ParentsName":parentsNm.text,
+                          "Label":_selectedLabel,
+                          "Phone":phone.text
+                    });
+                    Navigator.of(context).pop();
+                    setState(() {});
                   },
                 ),
               ),

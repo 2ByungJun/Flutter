@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pkidscoures/LoginView/loginRegister.dart';
+import 'package:pkidscoures/SideBar/navigation_bloc.dart';
+import 'package:pkidscoures/SideBar/sidebar_layout.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -8,13 +13,37 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final TextEditingController id = TextEditingController();
+  final TextEditingController pw = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    print("자식 State########################");
+    Work _work = Provider.of<Work>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          width: MediaQuery.of(context).size.height,
           height: MediaQuery.of(context).size.height,
+          decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(200),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.orange[400],
+                offset: Offset(10.0, 10.0),
+                blurRadius: 15.0,
+                spreadRadius: 1.0,
+              ),
+              BoxShadow(
+                color: Colors.white,
+                offset: Offset(10.0, 10.0),
+                blurRadius: 15.0,
+                spreadRadius: 1.0,
+              ),
+            ],
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +77,8 @@ class _LoginViewState extends State<LoginView> {
                   height: 200.0,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
-                      border: Border.all(width: 10.0, color: Colors.orange[300])),
+                      border:
+                          Border.all(width: 10.0, color: Colors.orange[300])),
                   child: ClipOval(
                     child: Image.asset("images/logo.gif", fit: BoxFit.cover),
                   )),
@@ -66,29 +96,25 @@ class _LoginViewState extends State<LoginView> {
                       height: 50,
                       margin: EdgeInsets.all(5.0),
                       child: TextField(
+                        controller: id,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "ID",
                             icon: Icon(Icons.account_circle,
-                                color: Colors.orange[400],
-                                size: 40.0
-                            )
-                        ),
+                                color: Colors.orange[400], size: 40.0)),
                       ),
                     ),
                     Container(
                       width: 300,
                       height: 50,
                       child: TextField(
+                        controller: pw,
                         obscureText: true,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: '패스워드',
                             icon: Icon(Icons.vpn_key,
-                                color: Colors.orange[400],
-                                size: 40.0
-                            )
-                        ),
+                                color: Colors.orange[400], size: 40.0)),
                       ),
                     ),
                   ],
@@ -113,14 +139,16 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       color: Colors.orange[400],
-                      onPressed: (){
-                        setState((){});
+                      onPressed: () {
+                        /*****  로그인&비밀번호 체크 *****/
+
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    SideBarLayout()),
+                            (route) => false);
                       },
-//                      onPressed: () {
-//                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-//                            builder: (BuildContext context) =>
-//                                MyApp()), (route) => false);
-//                      },
                     ),
                   ),
                   RaisedButton(
@@ -134,11 +162,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     color: Colors.deepOrangeAccent[400],
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => LoginRegisterView()
-                          )
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginRegisterView()));
                     },
                   ),
                 ],
