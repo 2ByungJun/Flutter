@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kopo/kopo.dart';
 import 'package:http/http.dart' as http;
+import 'package:pkidscoures/TeacherView/CarCourse/CarCourseCreate.dart';
 
 class CarCourseView extends StatefulWidget {
   @override
@@ -12,7 +12,6 @@ class CarCourseView extends StatefulWidget {
 
 class _CarCourseViewState extends State<CarCourseView> {
   var _isCheck = false; // 등&하원 스위치
-  String adressValue = "주소를 검색해주세요"; // kopo 사용
 
   final _url = "http://192.168.0.130:3000";
 
@@ -84,41 +83,36 @@ class _CarCourseViewState extends State<CarCourseView> {
                         width: MediaQuery.of(context).size.width,
                         height: 380.0,
                         padding: const EdgeInsets.all(3.0),
-                        decoration: new BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white,
-                            border: Border.all(
-                                width: 5, color: Colors.orange[200])),
                         child: ListView.builder(
+                          reverse: _isCheck,
                           scrollDirection: Axis.vertical,
                           itemCount: snap.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet<void>(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(32.0),
-                                            child: Text(
-                                              'This is the modal bottom sheet. Slide down to dismiss.',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Theme.of(context).accentColor,
-                                                fontSize: 24.0,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      });
-                                },
+                            return Column(
+                              children: <Widget>[
+                                if(_isCheck)
+                                  Icon(Icons.keyboard_arrow_up, color: Colors.indigo,size: 30,),
 
-                                child: Card(
+                                Card(
                                   child: ListTile(
-                                      onTap: () {},
+                                      onTap: () {
+                                        showModalBottomSheet<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Container(
+                                                height: 120,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text("주소 : " +  snap.data[index]['fields']['Name'],
+                                                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
                                       onLongPress: null,
                                       leading: Container(
                                         width: 50.0,
@@ -129,18 +123,20 @@ class _CarCourseViewState extends State<CarCourseView> {
                                               fit: BoxFit.cover),
                                         ),
                                       ),
-                                      title: Text(snap.data[index]['fields']['Name']),
-                                      subtitle: Text("sub..."),
-                                      trailing: Icon(Icons.clear)
-                                  ),
+                                      title: Text(snap.data[index]
+                                      ['fields']['Name']),
+                                      subtitle: Text(snap.data[index]
+                                      ['fields']['Address']),
+                                      trailing: Icon(Icons.clear)),
                                 ),
-                              ),
+
+                                if(!_isCheck)
+                                  Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent,size: 30,)
+                              ],
                             );
                           },
-                        )
-                    ),
+                        )),
                   ),
-
                   Container(
                       alignment: Alignment.center,
                       child: Column(
@@ -168,18 +164,9 @@ class _CarCourseViewState extends State<CarCourseView> {
 
       /***** 주소지 추가 *****/
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          var result = await Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (context) => Kopo(),
-            ),
-          );
-          print(result.toJson());
-          if (result != null) {
-            setState(() {
-              this.adressValue = '${result.address}';
-            });
-          }
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CarCourseCreate()));
         },
         label: Text(
           "주소지 추가",
