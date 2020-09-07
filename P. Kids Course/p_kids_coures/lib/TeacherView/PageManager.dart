@@ -1,60 +1,75 @@
-import 'package:flutter/material.dart';
-import 'package:pkidscoures/LoginView/loginView.dart';
-import 'package:pkidscoures/SideBar/navigation_bloc.dart';
+import 'dart:ui';
 
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'Attend/AttendView.dart';
 import 'CarCourse/CarCourse.dart';
 import 'CarSub/CarSub.dart';
 
-class PageManagerView extends StatefulWidget with NavigationStates{
+class PageManagerView extends StatefulWidget{
+  /// 공통 URL
+  static var url = "http://192.168.0.83:3000";
   @override
   _PageManagerViewState createState() => _PageManagerViewState();
 }
 
 class _PageManagerViewState extends State<PageManagerView> {
-  var _index = 0;
-
-  var _pages = [
-    AttendView(),
-    CarCourseView(),
-    CarSubView(),
-  ];
+  int currentPage = 1;
+  GlobalKey bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            margin: EdgeInsets.only(top: 50.0),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: _pages[_index]
+
+        appBar: AppBar(
+          title: Text("키즈코스", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+          backgroundColor: Colors.deepOrange,
+          centerTitle: true,
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
-        currentIndex: _index,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            title: Text('출결확인'),
-            icon: Icon(Icons.check_box),
+
+        body: Center(
+          child: Container(
+            child: _getPage(currentPage),
           ),
-          BottomNavigationBarItem(
-            title: Text('코스작성'),
-            icon: Icon(Icons.map),
-          ),
-          BottomNavigationBarItem(
-            title: Text('차량지도'),
-            icon: Icon(Icons.directions_car),
-          ),
-        ],
-        fixedColor: Colors.deepOrange,
-      ),
+        ),
+
+        bottomNavigationBar: FancyBottomNavigation(
+          tabs: [
+            TabData(
+                iconData: Icons.people,
+                title: "출결확인"
+            ),
+            TabData(
+                iconData: Icons.map,
+                title: "코스작성"
+            ),
+            TabData(
+                iconData: Icons.directions_bus,
+                title: "도착알림"
+            )
+          ],
+          initialSelection: 1,
+          inactiveIconColor: Colors.deepOrange,
+          circleColor:  Color(0xFF72E389),
+          key: bottomNavigationKey,
+          onTabChangedListener: (position) {
+            setState(() {
+              currentPage = position;
+            });
+          },
+        )
     );
+  }
+}
+
+_getPage(int page) {
+  switch (page) {
+  case 0:
+  return AttendView();
+  case 1:
+      return CarCourseView();
+    default:
+      return CarSubView();
   }
 }

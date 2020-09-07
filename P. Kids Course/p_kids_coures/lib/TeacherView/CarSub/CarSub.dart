@@ -3,14 +3,16 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pkidscoures/TeacherView/PageManager.dart';
 
 class CarSubView extends StatefulWidget{
+
   @override
   _CarSubViewState createState() => _CarSubViewState();
 }
 
 class _CarSubViewState extends State<CarSubView> {
-  final _url = "http://192.168.0.130:3000";
+  final _url = PageManagerView.url;
 
   var _isCheck = false; // 등&하원 스위치
   var i=0;
@@ -37,7 +39,7 @@ class _CarSubViewState extends State<CarSubView> {
       body: FutureBuilder(
           future: this.fetch(),
           builder: (BuildContext context, AsyncSnapshot<List> snap) {
-            if (!snap.hasData) return CircularProgressIndicator();
+            if (!snap.hasData) return Scaffold(body: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange))));
 
             return SingleChildScrollView(
               child: Column(
@@ -53,7 +55,7 @@ class _CarSubViewState extends State<CarSubView> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: Colors.deepOrange),
+                              color: _isCheck ? Colors.grey : Colors.deepOrange),
                         ),
                         Switch(
                           value: _isCheck,
@@ -62,13 +64,18 @@ class _CarSubViewState extends State<CarSubView> {
                               _isCheck = value;
                             });
                           },
+                          activeColor: Colors.indigo,
+                          inactiveThumbColor: Colors.deepOrange,
+                          inactiveTrackColor: Colors.orangeAccent,
+
                         ),
+
                         Text(
                           "하원",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: Colors.indigo),
+                              color: _isCheck ? Colors.indigo : Colors.grey),
                         )
                       ],
                     ),
@@ -79,8 +86,9 @@ class _CarSubViewState extends State<CarSubView> {
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 380.0,
+                        height: MediaQuery.of(context).size.height/2,
                         padding: const EdgeInsets.all(3.0),
+                        color: _isCheck ? Colors.indigoAccent[100] : Colors.orangeAccent[100],
                         child: ListView.builder(
                           reverse: _isCheck,
                           scrollDirection: Axis.vertical,
@@ -88,9 +96,6 @@ class _CarSubViewState extends State<CarSubView> {
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: <Widget>[
-                                if(_isCheck)
-                                  Icon(Icons.keyboard_arrow_up, color: Colors.indigo,size: 30,),
-
                                 Card(
                                   child: ListTile(
                                       onTap: () {
@@ -129,14 +134,15 @@ class _CarSubViewState extends State<CarSubView> {
                                         ),
                                       ),
                                       title: Text(snap.data[index]
-                                      ['fields']['Name']),
+                                      ['fields']['Name']
+                                      ),
                                       subtitle: Text(snap.data[index]
-                                      ['fields']['Address']),
-                                      trailing: Icon(Icons.clear)),
+                                      ['fields']['Address']
+                                      ),
+                                      trailing: Icon(Icons.clear)
+                                  ),
                                 ),
-
-                                if(!_isCheck)
-                                 Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent, size: 30,),
+                                _isCheck ? Icon(Icons.keyboard_arrow_down, color: Colors.indigo,size: 30,) : Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent,size: 30,),
                               ],
                             );
                           },

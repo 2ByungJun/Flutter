@@ -12,7 +12,7 @@ class CarCourseCreate extends StatefulWidget {
 }
 
 class _CarCourseCreateState extends State<CarCourseCreate> {
-  String adressValue = "주소지 추가를 눌러주세요!";
+  String adressValue = "여기를 눌러주세요!";
 
   final TextEditingController name = TextEditingController();
   @override
@@ -68,7 +68,23 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
 
                             Container(
                                 margin: EdgeInsets.only(left: 17),
-                                child: Text(adressValue)),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    var result = await Navigator.of(context).push(
+                                      CupertinoPageRoute(
+                                        builder: (context) => Kopo(),
+                                      ),
+                                    );
+                                    print(result.toJson());
+                                    if (result != null) {
+                                      setState(() {
+                                        this.adressValue = '${result.address}';
+                                      });
+                                    }
+                                  },
+                                    child: Text(adressValue)
+                                )
+                            ),
                           ],
                         ),
                       ),
@@ -116,29 +132,6 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
             ],
           ),
         ),
-      ),
-
-      /***** 주소지 추가 *****/
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          var result = await Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (context) => Kopo(),
-            ),
-          );
-          print(result.toJson());
-          if (result != null) {
-            setState(() {
-              this.adressValue = '${result.address}';
-            });
-          }
-        },
-        label: Text(
-          "주소지 추가",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        icon: Icon(Icons.map),
-        backgroundColor: Colors.purple[300],
       ),
     );
   }

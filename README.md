@@ -1,5 +1,5 @@
 # **Flutter Trip**
-### Update - 2020.08.02
+### Update - 2020.09.07
 
 ### 😊 **Opening**
 
@@ -147,3 +147,4 @@ ___
   -  [2020.07.22] : UI
   -  [2020.08.01] : Nodejs x Airtable
   -  [2020.08.02] : CarCourse Fixed
+  -  [2020.09.07] : login, register

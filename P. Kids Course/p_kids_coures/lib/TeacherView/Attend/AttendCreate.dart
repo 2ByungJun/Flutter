@@ -4,21 +4,21 @@ import 'package:provider/provider.dart';
 
 import '../../main.dart';
 
-class AttendCreate extends StatefulWidget {
-  @override
-  _AttendCreateState createState() => _AttendCreateState();
-}
+    class AttendCreate extends StatefulWidget {
+    @override
+    _AttendCreateState createState() => _AttendCreateState();
+    }
 
-class _AttendCreateState extends State<AttendCreate> {
-  List<String> _label = ["달님반", "햇님반", "별님반"];
-  String _selectedLabel;
+    class _AttendCreateState extends State<AttendCreate> {
+    List<String> _label = ["달님반", "햇님반", "별님반"];
+    String _selectedLabel;
 
-  final TextEditingController babyNm = TextEditingController();
-  final TextEditingController parentsNm = TextEditingController();
-  final TextEditingController phone = TextEditingController();
+    final TextEditingController babyNm = TextEditingController();
+    final TextEditingController parentsNm = TextEditingController();
+    final TextEditingController phone = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     Work _work = Provider.of<Work>(context);
     return Scaffold(
       appBar: AppBar(
@@ -159,9 +159,8 @@ class _AttendCreateState extends State<AttendCreate> {
                           "ParentsName":parentsNm.text,
                           "Label":_selectedLabel,
                           "Phone":phone.text
-                    });
+                        });
                     Navigator.of(context).pop();
-                    setState(() {});
                   },
                 ),
               ),

@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pkidscoures/LoginView/loginRegister.dart';
-import 'package:pkidscoures/SideBar/navigation_bloc.dart';
-import 'package:pkidscoures/SideBar/sidebar_layout.dart';
-import 'package:provider/provider.dart';
-
-import '../main.dart';
+import 'package:pkidscoures/LoginView/SerialKey1.dart';
+import 'package:pkidscoures/TeacherView/PageManager.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -13,13 +9,12 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController id = TextEditingController();
-  final TextEditingController pw = TextEditingController();
+  TextEditingController serialKey = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    Work _work = Provider.of<Work>(context);
     return Scaffold(
+      /**** 비율이 달라질 경우 대비 ****/
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.height,
@@ -50,21 +45,12 @@ class _LoginViewState extends State<LoginView> {
             children: <Widget>[
               /***** 상단부 *****/
               Container(
-                child: Text(
-                  "키즈코스",
-                  style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.deepOrangeAccent,
-                      fontWeight: FontWeight.bold),
+                child: Text( "키즈코스", style: TextStyle(fontSize: 40, color: Colors.deepOrangeAccent, fontWeight: FontWeight.bold
+                 ),
                 ),
               ),
               Container(
-                child: Text(
-                  "어린이집 차량지도를 보다 빠르게!",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.orange[300],
-                    fontWeight: FontWeight.bold,
+                child: Text( "어린이집 차량지도를 보다 빠르게!", style: TextStyle( fontSize: 20, color: Colors.orange[300], fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -77,94 +63,90 @@ class _LoginViewState extends State<LoginView> {
                   height: 200.0,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
-                      border:
-                          Border.all(width: 10.0, color: Colors.orange[300])),
+                      border: Border.all(width: 10.0, color: Colors.orange[300])),
                   child: ClipOval(
                     child: Image.asset("images/logo.gif", fit: BoxFit.cover),
-                  )),
+                  )
+              ),
 
               /***** InputBox *****/
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 300,
-                      height: 50,
-                      margin: EdgeInsets.all(5.0),
-                      child: TextField(
-                        controller: id,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "ID",
-                            icon: Icon(Icons.account_circle,
-                                color: Colors.orange[400], size: 40.0)),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 300,
+                        height: 50,
+                        child: TextField(
+                          controller: serialKey,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: '시리얼 키',
+                              icon: Icon(Icons.vpn_key, color: Colors.orange[400], size: 40.0),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 50,
-                      child: TextField(
-                        controller: pw,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: '패스워드',
-                            icon: Icon(Icons.vpn_key,
-                                color: Colors.orange[400], size: 40.0)),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
               /***** 버튼(로그인&회원가입) *****/
-              Row(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(5.0),
-                    child: RaisedButton(
-                      child: Text(
-                        "로그인",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    child: SizedBox(
+                      width: 250,
+                      child: CupertinoButton(
+                        child: Text( "접속", style: TextStyle( fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,
+                          ),
                         ),
+                        color: Colors.orange[400],
+                        onPressed: () {
+                          /*****  로그인&비밀번호 체크 *****/
+                          if( serialKey.text == "abc"){
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => PageManagerView()), (route) => false);
+                          }else{
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  title: Text('존재하지 않는 시리얼 키입니다.', style: TextStyle(fontWeight: FontWeight.bold),),
+                                  content: Text('만약 시리얼 키가 없으시다면! \n요청 버튼을 눌러 발급받으시길 바랍니다.'),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('확인'),
+                                      onPressed: (){
+                                        Navigator.pop(context, "확인");
+                                      },
+                                    )
+                                  ],
+                                );
+                              }
+                            );
+                          }
+                        },
                       ),
-                      color: Colors.orange[400],
-                      onPressed: () {
-                        /*****  로그인&비밀번호 체크 *****/
-
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    SideBarLayout()),
-                            (route) => false);
-                      },
                     ),
                   ),
-                  RaisedButton(
-                    child: Text(
-                      "회원가입",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: 250,
+                    child: CupertinoButton(
+                      child: Text( "시리얼 키 요청", style: TextStyle( fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,
                       ),
+                      ),
+                      color: Colors.deepOrangeAccent[400],
+                      onPressed: () { Navigator.of(context).push(MaterialPageRoute( builder: (context) => SerialKey1()));
+                      },
                     ),
-                    color: Colors.deepOrangeAccent[400],
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LoginRegisterView()));
-                    },
                   ),
                 ],
               ),
@@ -172,12 +154,7 @@ class _LoginViewState extends State<LoginView> {
               /***** 하단부 *****/
               Container(
                 margin: EdgeInsets.all(20.0),
-                child: Text(
-                  "보육교사 전용 App",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.orange[300],
-                    fontWeight: FontWeight.bold,
+                child: Text( "보육교사 전용 App", style: TextStyle( fontSize: 20, color: Colors.orange[300], fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

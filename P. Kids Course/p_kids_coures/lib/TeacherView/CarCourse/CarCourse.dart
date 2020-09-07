@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pkidscoures/TeacherView/CarCourse/CarCourseCreate.dart';
 
+import '../PageManager.dart';
+
 class CarCourseView extends StatefulWidget {
   @override
   _CarCourseViewState createState() => _CarCourseViewState();
 }
 
 class _CarCourseViewState extends State<CarCourseView> {
+  final _url = PageManagerView.url;
   var _isCheck = false; // 등&하원 스위치
-
-  final _url = "http://192.168.0.130:3000";
 
   Future<List> fetch() async {
     http.Response _res = await http.get(_url + "/course");
@@ -39,7 +40,7 @@ class _CarCourseViewState extends State<CarCourseView> {
       body: FutureBuilder(
           future: this.fetch(),
           builder: (BuildContext context, AsyncSnapshot<List> snap) {
-            if (!snap.hasData) return CircularProgressIndicator();
+            if (!snap.hasData) return Scaffold(body: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange))));
 
             return SingleChildScrollView(
               child: Column(
@@ -55,7 +56,7 @@ class _CarCourseViewState extends State<CarCourseView> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: Colors.deepOrange),
+                              color: _isCheck ? Colors.grey : Colors.deepOrange),
                         ),
                         Switch(
                           value: _isCheck,
@@ -64,13 +65,18 @@ class _CarCourseViewState extends State<CarCourseView> {
                               _isCheck = value;
                             });
                           },
+                          activeColor: Colors.indigo,
+                          inactiveThumbColor: Colors.deepOrange,
+                          inactiveTrackColor: Colors.orangeAccent,
+
                         ),
+
                         Text(
                           "하원",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: Colors.indigo),
+                              color: _isCheck ? Colors.indigo : Colors.grey),
                         )
                       ],
                     ),
@@ -81,7 +87,8 @@ class _CarCourseViewState extends State<CarCourseView> {
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 380.0,
+                        height: MediaQuery.of(context).size.height/2,
+                        color: _isCheck ? Colors.indigoAccent[100] : Colors.orangeAccent[100],
                         padding: const EdgeInsets.all(3.0),
                         child: ListView.builder(
                           reverse: _isCheck,
@@ -90,9 +97,6 @@ class _CarCourseViewState extends State<CarCourseView> {
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: <Widget>[
-                                if(_isCheck)
-                                  Icon(Icons.keyboard_arrow_up, color: Colors.indigo,size: 30,),
-
                                 Card(
                                   child: ListTile(
                                       onTap: () {
@@ -130,8 +134,8 @@ class _CarCourseViewState extends State<CarCourseView> {
                                       trailing: Icon(Icons.clear)),
                                 ),
 
-                                if(!_isCheck)
-                                  Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent,size: 30,)
+                                _isCheck ? Icon(Icons.keyboard_arrow_down, color: Colors.indigo,size: 30,) : Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent,size: 30,),
+
                               ],
                             );
                           },
@@ -164,12 +168,12 @@ class _CarCourseViewState extends State<CarCourseView> {
 
       /***** 주소지 추가 *****/
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CarCourseCreate()));
-        },
+        onPressed: () async {
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarCourseCreate()));
+          setState(() {});
+          },
         label: Text(
-          "주소지 추가",
+          "코스 추가",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         icon: Icon(Icons.map),
