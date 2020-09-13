@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 import '../PageManager.dart';
@@ -18,7 +19,12 @@ import 'AttendCreate.dart';
     return _resBody;
   }
 
-  class AttendView extends StatelessWidget {
+  class AttendView extends StatefulWidget {
+    @override
+    _AttendViewState createState() => _AttendViewState();
+  }
+
+  class _AttendViewState extends State<AttendView> {
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -27,268 +33,125 @@ import 'AttendCreate.dart';
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
 
-            return snapshot.hasData
-                ? BabyList(babys: snapshot.data)
-                : Center(child: CircularProgressIndicator());
-          },
-        ),
+            return !snapshot.hasData ? Center(
+                child: CircularProgressIndicator()) :
+            SingleChildScrollView(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.69,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(40),
+                          ),
+                          color: Colors.blue[50]
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0
+                          ),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                print("bb");
+                              },
+                              onLongPress: () {
+                                print("aa");
+                              },
+                              child: Card(
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width,
+                                          child: Center(child: Text(snapshot.data[index]['fields']['BabyName'].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                        ),
+
+                                        SizedBox(
+                                          height: 10.0,
+                                        ),
+
+                                        Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text('학부모명 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                              Text(snapshot.data[index]['fields']['ParentsName'].toString(), style: TextStyle(fontSize: 12))
+                                            ],
+                                          ),
+                                        ),
+
+                                        Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text('연락처 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                              Text(snapshot.data[index]['fields']['Phone'].toString(), style: TextStyle(fontSize: 12))
+                                            ],
+                                          ),
+                                        ),
+
+                                        Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text('오늘 출석여부 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                              Text(snapshot.data[index]['fields']['attend'].toString(), style: TextStyle(fontSize: 12))
+                                            ],
+                                          ),
+                                        ),
+
+                                        Container(
+                                          width: 55.0,
+                                          height: 55.0,
+                                          margin: EdgeInsetsDirectional.only(top: 5.0),
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(snapshot.data[index]['fields']['attendImage'].toString()),fit: BoxFit.contain
+                                            ),
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
 
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () async {
-            await Navigator.of(context).push(MaterialPageRoute(builder: (context) => AttendCreate()));
-            setState(){}
+          onPressed: (){
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => AttendCreate())).then((value){
+              setState((){});
+            });
           },
-          label: Text( "원아 등록", style: TextStyle(fontWeight: FontWeight.bold),
+          label: Text("원아 등록", style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          icon: Icon(Icons.add_box),
+          icon: Icon(Icons.person_add),
           backgroundColor: CornflowerBlue,
         ),
       );
     }
   }
-
-  class BabyList extends StatefulWidget {
-    final List<dynamic> babys;
-    const BabyList({Key key, this.babys}) : super(key: key);
-    @override
-    _BabyListState createState() => _BabyListState();
-  }
-
-  class _BabyListState extends State<BabyList> {
-    @override
-    Widget build(BuildContext context) {
-      return SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 150.0,
-                child: ListView.builder(
-                    itemCount: widget.babys.length,
-                    itemBuilder: (context, index) {
-                      return Text(widget.babys[index]['fields']['BabyName'].toString());
-                    },
-                ),
-              ),
-
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 150.0,
-              ),
-
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 150.0,
-              )
-            ],
-          ),
-        ),
-      );
-    }
-  }
-
-/*GridView.builder(
-gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-crossAxisCount: 2,
-),
-itemCount: widget.babys.length,
-itemBuilder: (context, index) {
-return Text(widget.babys[index]['fields']['BabyName'].toString());
-},
-),*/
-
-/*
-
-SingleChildScrollView(
-child: Padding(
-padding: const EdgeInsets.all(8.0),
-child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
-children: <Widget>[
-*/
-/***** 해당 반 선택 *****//*
-
-Container(
-child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
-children: <Widget>[
-Container(
-margin: EdgeInsets.only(
-top: 5.0, bottom: 5.0, right: 20.0),
-width: 70.0,
-height: 70.0,
-child: ClipOval(
-child: Image.asset(
-"images/" + _labelImg[_selectedImg],
-fit: BoxFit.cover),
-)),
-Container(
-child: DropdownButton(
-icon: Icon(Icons.arrow_drop_down_circle),
-iconSize: 24,
-iconEnabledColor: Colors.deepOrange,
-elevation: 16,
-focusColor: Colors.green,
-style: TextStyle(
-color: Colors.black,
-fontWeight: FontWeight.bold,
-fontSize: 17,
-),
-underline: Container(
-height: 3,
-color: Colors.orange[300],
-),
-hint: Text(
-'반 선택하기',
-style:
-TextStyle(fontWeight: FontWeight.bold),
-),
-value: _selectedLabel,
-onChanged: (newValue) {
-setState(() {
-_selectedLabel = newValue;
-_selectedImg = _selectedLabel;
-});
-},
-items: _label.map((label) {
-return DropdownMenuItem(
-child: new Text(label),
-value: label,
-);
-}).toList(),
-),
-),
-],
-),
-),
-
-*/
-/***** 아이 리스트 *****//*
-
-Container(
-width: MediaQuery.of(context).size.width,
-height: 400.0,
-padding: const EdgeInsets.all(3.0),
-decoration: new BoxDecoration(
-borderRadius: BorderRadius.circular(30),
-color: Colors.white,
-border: Border.all(
-width: 5, color: Colors.orange[200])),
-child: ListView.builder(
-scrollDirection: Axis.vertical,
-itemCount: snap.data.length,
-itemBuilder: (BuildContext context, int index) {
-return Padding(
-padding: const EdgeInsets.all(4.0),
-child: Card(
-child: ListTile(
-onTap: () {},
-onLongPress: () async {
-bool _check = await showDialog(
-context: context,
-builder: (_) => AlertDialog(
-title: Text("삭제하시겠어요?"),
-content: Text(
-"삭제하시려면 확인을 눌러주세요."),
-actions: <Widget>[
-FlatButton(
-child: Text("확인"),
-onPressed:
-() async {
-// 로그인 헤더체크
-// dart << content
-// android,IOS <<  content 체크
-final http
-    .Response
-_res =
-await http.post(
-'$_url/babyDelete',
-body: {
-"data": snap
-    .data[
-index]
-[
-'id']
-    .toString()
-});
-final bool
-_resultCheck =
-json.decode(
-_res.body);
-if (!_resultCheck)
-return;
-Navigator.of(
-context)
-    .pop(
-_resultCheck);
-},
-),
-FlatButton(
-child: Text("취소"),
-onPressed: () {
-Navigator.of(
-context)
-    .pop(false);
-},
-)
-],
-)) ??
-false;
-print(_check);
-// await 삭제중입니다. (model)
-if (!_check) return;
-setState(() {});
-},
-leading: Container(
-width: 50.0,
-height: 50.0,
-child: ClipOval(
-child: Image.asset(
-"images/" +
-_labelImg[snap.data[index]
-['fields']['Label']],
-fit: BoxFit.cover),
-),
-),
-title: Text(snap.data[index]['fields']
-['BabyName']),
-subtitle: Text(snap.data[index]
-['fields']['ParentsName'] +
-" : " +
-snap.data[index]['fields']
-['Phone']),
-trailing: Checkbox(
-value: false,
-onChanged: (bool change) {
-setState(() {
-snap.data[index]['fields']
-['Attend'] = change;
-});
-},
-)),
-),
-);
-},
-))
-])),
-);
-}),
-
-*/
-/***** 원아 등록 *****//*
-
-floatingActionButton: FloatingActionButton.extended(
-onPressed: () async {
-await Navigator.of(context)
-.push(MaterialPageRoute(builder: (context) => AttendCreate()));
-setState(() {});
-},
-label: Text(
-"원아 등록",
-style: TextStyle(fontWeight: FontWeight.bold),
-),
-icon: Icon(Icons.add_box),
-backgroundColor: Colors.deepOrange,
-),
-);*/

@@ -20,17 +20,30 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
     Work _work = Provider.of<Work>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("주소지 등록",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-        backgroundColor: Colors.purple[300],
+        title: Text("주소지 등록",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: Colors.black),),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.deepOrange, //change your color here
+        ),
       ),
 
       body: SingleChildScrollView(
         child: Container(
+          color: Colors.white,
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
+
+              SizedBox(
+                height: 50.0,
+              ),
+
+              Container(
+                child: Text("모든 사항들을 기입해주세요!", style: TextStyle( fontSize: 15, color: Colors.black54, fontWeight: FontWeight.bold, ), ),
+              ),
+
               /***** InputBox *****/
               Card(
                 margin: EdgeInsets.all(10.0),
@@ -47,9 +60,7 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: "주소지 이름",
-                              icon: Icon(Icons.directions_car,
-                                  color: Colors.orange[400],
-                                  size: 30.0
+                              icon: Icon(Icons.directions_car,color: Colors.deepOrange,size: 30.0
                               )
                           ),
                         ),
@@ -61,10 +72,7 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
                         margin: EdgeInsets.all(5.0),
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.map,
-                              color: Colors.orange[400],
-                              size: 30.0
-                            ),
+                            Icon(Icons.map, color: Colors.deepOrange, size: 30.0 ),
 
                             Container(
                                 margin: EdgeInsets.only(left: 17),
@@ -93,39 +101,18 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
                 ),
               ),
 
-              /***** 하단부 *****/
-              Container(
-                child: Text(
-                  "모든 사항들을 기입해주세요!",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.deepOrange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
               /***** 주소지 등록 버튼 *****/
               Container(
                 margin: EdgeInsets.all(5.0),
-                child: RaisedButton(
-                  child: Text(
-                    "주소지 등록",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                child: CupertinoButton(
+                  child: Text("주소지 이름",style: TextStyle( fontSize: 15,color: Colors.white,fontWeight: FontWeight.bold,),),
                   color: Colors.deepOrange,
-                  onPressed: () async {
-                    await http.post( _work.url + '/courseCreate',
-                        body: {
+                  onPressed: ()  {
+                    http.post( _work.url + '/courseCreate', body: {
                           "Name":name.text,
                           "Address":adressValue
                         });
                     Navigator.of(context).pop();
-                    setState(() {});
                   },
                 ),
               ),

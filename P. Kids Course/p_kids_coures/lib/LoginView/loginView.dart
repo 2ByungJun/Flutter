@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:pkidscoures/LoginView/SerialKey1.dart';
 import 'package:pkidscoures/TeacherView/PageManager.dart';
+import 'package:http/http.dart' as http;
+
+final _url = PageManagerView.url;
 
 class LoginView extends StatefulWidget {
   @override
@@ -17,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
       /**** 비율이 달라질 경우 대비 ****/
       body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: new BoxDecoration(
             color: Colors.white,
@@ -110,9 +116,12 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                         color: Colors.orange[400],
-                        onPressed: () {
-                          /*****  로그인&비밀번호 체크 *****/
-                          if( serialKey.text == "abc"){
+                        onPressed: () async {
+                          http.Response _res = await http.post( _url + '/login', body: { "serialKey":serialKey.text });
+
+                          /*****  API Key 체크 *****/
+                          // ignore: unrelated_type_equality_checks
+                          if(_res.body == "true"){
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => PageManagerView()), (route) => false);
                           }else{
                             showDialog(
