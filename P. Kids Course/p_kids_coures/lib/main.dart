@@ -41,7 +41,7 @@ void main() => runApp(MultiProvider(
 
 class Work with ChangeNotifier {
   bool value = true;
-  get url => "http://192.168.123.105:3000";
+  get url => "http://192.168.123.104:3000";
 
   Future<bool> check() async {
     return this.value;

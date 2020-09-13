@@ -10,8 +10,6 @@ import '../PageManager.dart';
 import 'AttendCreate.dart';
 
   final _url = PageManagerView.url;
-  // ignore: non_constant_identifier_names
-  Color CornflowerBlue = Color(0xFF7087F0);
 
   Future<List> fetchBaby() async {
     http.Response _res = await http.get(_url + "/baby");
@@ -25,6 +23,21 @@ import 'AttendCreate.dart';
   }
 
   class _AttendViewState extends State<AttendView> {
+
+    @override
+    void initState() {
+        print("init");
+      setState(() {});
+      super.initState();
+    }
+
+    @override
+    void didChangeDependencies() {
+        print("did");
+        setState(() {});
+        super.didChangeDependencies();
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -61,10 +74,98 @@ import 'AttendCreate.dart';
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                print("bb");
-                              },
-                              onLongPress: () {
-                                print("aa");
+                                showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 150.0,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.all(10.0),
+                                              child: Text(snapshot.data[index]['fields']['BabyName'].toString() + ' 원아가 선택되었습니다.', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),),
+                                            ),
+
+                                            Container(
+                                              child: Row(
+                                                children: <Widget>[
+                                                  CupertinoButton(
+                                                    child: Text("출석 처리",
+                                                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+                                                    ),
+                                                    color: Colors.orange[300],
+                                                    onPressed: () async {
+                                                      if(snapshot.data[index]['fields']['attend'].toString() == "출석"){
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context){
+                                                              return AlertDialog(
+                                                                title: Text('이미 출석중인 원아입니다.', style: TextStyle(fontWeight: FontWeight.bold),),
+                                                                content: Text('출석 취소를 누르시면 취소됩니다.'),
+                                                                actions: <Widget>[
+                                                                  FlatButton(
+                                                                    child: Text('출석 취소'),
+                                                                    onPressed: () async{
+                                                                      await  http.post( _url + '/babyAttend', body: {
+                                                                          "id": snapshot.data[index]['id'].toString(),
+                                                                          "attend": snapshot.data[index]['fields']['attend'].toString()
+                                                                          });
+                                                                        setState(() {});
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                  ),
+                                                                  FlatButton(
+                                                                    child: Text('취소'),
+                                                                    onPressed: (){
+                                                                      Navigator.pop(context, "취소");
+                                                                    },
+                                                                  )
+                                                                ],
+                                                              );
+                                                            }
+                                                        );
+                                                      }else{
+                                                        await  http.post( _url + '/babyAttend', body: {
+                                                          "id": snapshot.data[index]['id'].toString(),
+                                                          "attend": snapshot.data[index]['fields']['attend'].toString()
+                                                        }).then((value) => {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context){
+                                                                return AlertDialog(
+                                                                  title: Text('출석 처리 되었습니다.', style: TextStyle(fontWeight: FontWeight.bold),),
+                                                                  actions: <Widget>[
+                                                                    FlatButton(
+                                                                      child: Text('확인'),
+                                                                      onPressed: (){
+                                                                        setState(() {});
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                );
+                                                             }
+                                                            )
+                                                        });
+                                                      }
+                                                    },
+                                                  ),
+
+                                                  CupertinoButton(
+                                                    onPressed: () {},
+                                                    child: Text("정보 수정",
+                                                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+                                                    ),
+                                                    color: Colors.purple[300],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
                               },
                               child: Card(
                                 child: Container(
@@ -73,10 +174,7 @@ import 'AttendCreate.dart';
                                     child: Column(
                                       children: <Widget>[
                                         Container(
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width,
+                                          width: MediaQuery.of(context).size.width,
                                           child: Center(child: Text(snapshot.data[index]['fields']['BabyName'].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                         ),
 
@@ -150,8 +248,8 @@ import 'AttendCreate.dart';
           label: Text("원아 등록", style: TextStyle(fontWeight: FontWeight.bold),
           ),
           icon: Icon(Icons.person_add),
-          backgroundColor: CornflowerBlue,
+          backgroundColor: Color(0xFF7087F0),
         ),
       );
     }
-  }
+}
