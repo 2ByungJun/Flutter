@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pkidscoures/TeacherView/PageManager.dart';
 import 'package:provider/provider.dart';
 import 'LoginView/loginView.dart';
 
@@ -12,7 +13,7 @@ void main() => runApp(MultiProvider(
   ));
 
 
-/*class LoginCheck extends StatelessWidget {
+class LoginCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Work _work = Provider.of<Work>(context);
@@ -33,15 +34,15 @@ void main() => runApp(MultiProvider(
         if (!snap.data) return LoginView();
 
         // snap.data가 true인 경우
-        return SideBarLayout();
+        return PageManagerView();
       },
     );
   }
-}*/
+}
 
 class Work with ChangeNotifier {
   bool value = true;
-  get url => "http://192.168.123.104:3000";
+  get url => "http://192.168.123.103:3000";
 
   Future<bool> check() async {
     return this.value;

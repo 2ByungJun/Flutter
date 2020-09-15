@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:pkidscoures/TeacherView/Attend/AttendUpdate.dart';
 
 import '../PageManager.dart';
 import 'AttendCreate.dart';
@@ -22,21 +23,17 @@ import 'AttendCreate.dart';
     _AttendViewState createState() => _AttendViewState();
   }
 
+
+  Future<List> fetchCourse() async {
+    http.Response _res = await http.get(_url + "/babyCourseList");
+    List<dynamic> _resBody = json.decode(_res.body);
+    return _resBody;
+  }
+
+  var addressIdx = '';
+  var address = '';
+  var addressDetail = '';
   class _AttendViewState extends State<AttendView> {
-
-    @override
-    void initState() {
-        print("init");
-      setState(() {});
-      super.initState();
-    }
-
-    @override
-    void didChangeDependencies() {
-        print("did");
-        setState(() {});
-        super.didChangeDependencies();
-    }
 
     @override
     Widget build(BuildContext context) {
@@ -73,6 +70,34 @@ import 'AttendCreate.dart';
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
+                              onLongPress: ()async{
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context){
+                                      return AlertDialog(
+                                        title: Text('원아계정을 삭제시키겠습니까?' , style: TextStyle(fontWeight: FontWeight.bold),),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text('삭제'),
+                                            onPressed: () async{
+                                              await  http.post( _url + '/babyDelete', body: {
+                                                "id": snapshot.data[index]['id'].toString()
+                                              });
+                                              setState(() {});
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          FlatButton(
+                                            child: Text('취소'),
+                                            onPressed: (){
+                                              Navigator.pop(context, "취소");
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    }
+                                );
+                              },
                               onTap: () {
                                 showModalBottomSheet<void>(
                                     context: context,
@@ -138,7 +163,7 @@ import 'AttendCreate.dart';
                                                                   actions: <Widget>[
                                                                     FlatButton(
                                                                       child: Text('확인'),
-                                                                      onPressed: (){
+                                                                      onPressed: () {
                                                                         setState(() {});
                                                                         Navigator.pop(context);
                                                                       },
@@ -153,8 +178,10 @@ import 'AttendCreate.dart';
                                                   ),
 
                                                   CupertinoButton(
-                                                    onPressed: () {},
-                                                    child: Text("정보 수정",
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AttendUpdate(id: snapshot.data[index]['id'].toString(),)));
+                                                    },
+                                                    child: Text("코스 변경",
                                                       style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
                                                     ),
                                                     color: Colors.purple[300],
@@ -170,16 +197,12 @@ import 'AttendCreate.dart';
                               child: Card(
                                 child: Container(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(4.0),
                                     child: Column(
                                       children: <Widget>[
                                         Container(
                                           width: MediaQuery.of(context).size.width,
                                           child: Center(child: Text(snapshot.data[index]['fields']['BabyName'].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                                        ),
-
-                                        SizedBox(
-                                          height: 10.0,
                                         ),
 
                                         Container(
@@ -208,6 +231,16 @@ import 'AttendCreate.dart';
                                             children: <Widget>[
                                               Text('오늘 출석여부 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                                               Text(snapshot.data[index]['fields']['attend'].toString(), style: TextStyle(fontSize: 12))
+                                            ],
+                                          ),
+                                        ),
+
+                                        Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text('내리는 코스 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                              Text(snapshot.data[index]['fields']['Address'].toString(), style: TextStyle(fontSize: 12))
                                             ],
                                           ),
                                         ),

@@ -11,7 +11,7 @@ import 'CarSub/CarSub.dart';
 
 class PageManagerView extends StatefulWidget{
   /// 공통 URL
-  static var url = "http://192.168.123.104:3000";
+  static var url = "http://192.168.123.103:3000";
   @override
   _PageManagerViewState createState() => _PageManagerViewState();
 }
