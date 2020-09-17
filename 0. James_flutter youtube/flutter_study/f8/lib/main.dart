@@ -18,7 +18,7 @@ class FCMTest extends StatefulWidget {
 }
 
 class _FCMTestState extends State<FCMTest> {
-  final _url = "http://172.30.1.21:4000";
+  final _url = "http://192.168.123.104:4000";
   String _homeScreenText = "토큰 메세지";
   String _messageText = "대기 메세지";
   String result;

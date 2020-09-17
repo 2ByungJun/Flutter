@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:pkidscoures/TeacherView/CarCourse/CarCourseCreate.dart';
+import 'package:vertical_card_pager/vertical_card_pager.dart';
 
 import '../PageManager.dart';
+import 'CarCourseCreate.dart';
 
 class CarCourseView extends StatefulWidget {
   @override
@@ -14,7 +16,10 @@ class CarCourseView extends StatefulWidget {
 
 class _CarCourseViewState extends State<CarCourseView> {
   final _url = PageManagerView.url;
-  var _isCheck = false; // 등&하원 스위치
+
+  List carList = [];
+  List<String> titles;
+  List<Widget> images;
 
   Future<List> fetch() async {
     http.Response _res = await http.get(_url + "/course");
@@ -25,13 +30,30 @@ class _CarCourseViewState extends State<CarCourseView> {
   @override
   void initState() {
     Future.microtask(() async {
-      List result = await this.fetch();
+      carList = await this.fetch();
+      titles = new List<String>(carList.length);
+      images = new List<Widget>(carList.length);
+
+      /// 데이터 셋팅
+      for(int i=0; i<carList.length; i++){
+        titles[i] = carList[i]['fields']['Name'];
+        images[i] = Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0)),
+            child: Container(
+              width: 55.0,
+              height: 55.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/car.PNG"), fit: BoxFit.cover),
+              ),
+            ));
+        print(titles[i]);
+      }
+
       setState(() {});
-      print(result);
       return;
     });
-
-    super.initState();
   }
 
   @override
@@ -42,128 +64,102 @@ class _CarCourseViewState extends State<CarCourseView> {
           builder: (BuildContext context, AsyncSnapshot<List> snap) {
             if (!snap.hasData) return Scaffold(body: Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange))));
 
-            return SingleChildScrollView(
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    /***** 등&하원 스위치 *****/
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "등원",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: _isCheck ? Colors.grey : Colors.deepOrange),
-                          ),
-                          Switch(
-                            value: _isCheck,
-                            onChanged: (value) {
-                              setState(() {
-                                _isCheck = value;
+            return SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: VerticalCardPager(
+                        textStyle: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                        titles: titles,
+                        images: images,
+                        onPageChanged: (page) {
+                          // print(page);
+                        },
+                        align: ALIGN.CENTER,
+                        onSelectedItem: (selectIndex) async {
+                          http.Response _resBaby = await http.post(_url + '/courseBaby',body: {
+                            'idx' : (selectIndex+1).toString()
+                          });
+                          List<dynamic> _babyData = json.decode(_resBaby.body);
+                          print(_babyData);
+
+
+                          showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.height,
+                                  color: Colors.white,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Card(
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.height/12,
+                                          alignment: Alignment(0.0, 0.0),
+                                          child: Text(snap.data[selectIndex]['fields']['Name'] + "\t상세화면",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold),),
+                                        ),
+                                      ),
+
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height/15,
+                                        alignment: Alignment(0.0, 0.0),
+                                        child: Text('도착지 : ' + snap.data[selectIndex]['fields']['Address'],style: TextStyle(fontSize: 17.0),),
+                                      ),
+
+                                      SizedBox(
+                                        height: 20.0,
+                                      ),
+
+                                      Text('하원하는 아이들 명단', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height/6,
+                                        child: ListView.builder(
+                                          itemCount: _babyData.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index){
+                                            return Container(
+                                                width: 150.0,
+                                                height: 150.0,
+                                                margin: EdgeInsets.all(10.0),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(100.0),
+                                                  color: Colors.deepOrangeAccent
+                                                ),
+                                                child: Center(child: Text(_babyData[index].toString(), style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),))
+                                            );
+                                          },
+                                        ),
+                                      ),
+
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height/10,
+                                        alignment: Alignment(0.0, 0.0),
+                                        child: CupertinoButton(
+                                          child: Text("도착 메세지 보내기", style: TextStyle(fontWeight: FontWeight.bold),),
+                                          color: Colors.orangeAccent,
+                                          onPressed: (){
+                                            /// 도착메세지 FCM
+                                          },
+                                        )
+                                      ),
+
+                                    ],
+                                  ),
+                                );
                               });
-                            },
-                            activeColor: Colors.indigo,
-                            inactiveThumbColor: Colors.deepOrange,
-                            inactiveTrackColor: Colors.orangeAccent,
-
-                          ),
-
-                          Text(
-                            "하원",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: _isCheck ? Colors.indigo : Colors.grey),
-                          )
-                        ],
+                        },
                       ),
                     ),
-
-                    /***** 주소지 ListView *****/
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height/2,
-                          color: _isCheck ? Colors.indigoAccent[100] : Colors.orangeAccent[100],
-                          padding: const EdgeInsets.all(3.0),
-                          child: ListView.builder(
-                            reverse: _isCheck,
-                            scrollDirection: Axis.vertical,
-                            itemCount: snap.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                children: <Widget>[
-                                  Card(
-                                    child: ListTile(
-                                        onTap: () {
-                                          showModalBottomSheet<void>(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  height: 120,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Text("주소 : " +  snap.data[index]['fields']['Name'],
-                                                        style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                                                      ),
-
-                                                    ],
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        onLongPress: null,
-                                        leading: Container(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: ClipOval(
-                                            child: Image.asset(
-                                                "images/logo.gif",
-                                                fit: BoxFit.cover),
-                                          ),
-                                        ),
-                                        title: Text(snap.data[index]
-                                        ['fields']['Name']),
-                                        subtitle: Text(snap.data[index]
-                                        ['fields']['Address']),
-                                        trailing: Icon(Icons.clear)),
-                                  ),
-
-                                  _isCheck ? Icon(Icons.keyboard_arrow_down, color: Colors.indigo,size: 30,) : Icon(Icons.keyboard_arrow_down, color: Colors.deepOrangeAccent,size: 30,),
-
-                                ],
-                              );
-                            },
-                          )),
-                    ),
-                    Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              "주소지를 등록하시고 아이들의 차량지도를 관리하세요!",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[400]),
-                            ),
-                            Text(
-                              "주소지를 클릭하시면 아이들을 추가할 수 있습니다!",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[400]),
-                            ),
-                          ],
-                        ))
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           }),
@@ -173,14 +169,15 @@ class _CarCourseViewState extends State<CarCourseView> {
         onPressed: () async {
           await Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarCourseCreate()));
           setState(() {});
-          },
+        },
         label: Text(
-          "코스 추가",
+          "코스추가",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         icon: Icon(Icons.map),
-        backgroundColor: Color(0xFF7087F0),
+        backgroundColor: Colors.orangeAccent,
       ),
     );
   }
 }
+
