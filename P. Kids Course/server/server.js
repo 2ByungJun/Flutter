@@ -262,6 +262,35 @@ base('Course')
     });
 });
 
+app.post('/courseBaby', (req, res) =>{
+var data = req.body;
+var temp = [];
+var i = 0;
+console.log(data);
+
+base('Baby').select({
+    maxRecords: 50,
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+    records.forEach(function(record) {
+         if( data.idx == record.fields.AddressIdx){
+             if( '출석' == record.fields.attend){
+                temp[i] = JSON.stringify(record._rawJson.fields.BabyName);
+                i++;
+             }
+         }
+    });
+    fetchNextPage();
+    console.log(temp);
+    return res.json(temp);
+}, function done(err) {
+    if (err) { console.error(err); return res.json([]); }
+});
+
+
+
+});
+
 app.post('/courseCreate', (req, res) => {
 var data = req.body;
 console.log(data);
