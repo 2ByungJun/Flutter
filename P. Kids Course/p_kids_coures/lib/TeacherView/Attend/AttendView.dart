@@ -57,7 +57,7 @@ import 'AttendCreate.dart';
                           borderRadius: BorderRadius.all(
                             Radius.circular(40),
                           ),
-                          color: Colors.blue[50]
+                          color: Colors.orange[50]
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -194,72 +194,76 @@ import 'AttendCreate.dart';
                                       );
                                     });
                               },
-                              child: Card(
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Center(child: Text(snapshot.data[index]['fields']['BabyName'].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                                        ),
-
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text('학부모명 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                                              Text(snapshot.data[index]['fields']['ParentsName'].toString(), style: TextStyle(fontSize: 12))
-                                            ],
-                                          ),
-                                        ),
-
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text('연락처 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                                              Text(snapshot.data[index]['fields']['Phone'].toString(), style: TextStyle(fontSize: 12))
-                                            ],
-                                          ),
-                                        ),
-
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text('오늘 출석여부 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                                              Text(snapshot.data[index]['fields']['attend'].toString(), style: TextStyle(fontSize: 12))
-                                            ],
-                                          ),
-                                        ),
-
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text('내리는 코스 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                                              Text(snapshot.data[index]['fields']['Address'].toString(), style: TextStyle(fontSize: 12))
-                                            ],
-                                          ),
-                                        ),
-
-                                        Container(
-                                          width: 55.0,
-                                          height: 55.0,
-                                          margin: EdgeInsetsDirectional.only(top: 5.0),
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(snapshot.data[index]['fields']['attendImage'].toString()),fit: BoxFit.contain
+                              child: Column(
+                                children: <Widget>[
+                                  Card(
+                                    child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              child: Center(child: Text(snapshot.data[index]['fields']['BabyName'].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                             ),
-                                          ),
-                                        )
 
-                                      ],
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text('학부모명 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                                  Text(snapshot.data[index]['fields']['ParentsName'].toString(), style: TextStyle(fontSize: 12))
+                                                ],
+                                              ),
+                                            ),
+
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text('연락처 : ', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                                  Text(snapshot.data[index]['fields']['Phone'].toString(), style: TextStyle(fontSize: 12))
+                                                ],
+                                              ),
+                                            ),
+
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text('오늘 출석여부 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                                  Text(snapshot.data[index]['fields']['attend'].toString(), style: TextStyle(fontSize: 12))
+                                                ],
+                                              ),
+                                            ),
+
+                                            Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text('내리는 코스 : ',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                                  Text(snapshot.data[index]['fields']['Address'].toString(), style: TextStyle(fontSize: 12))
+                                                ],
+                                              ),
+                                            ),
+
+                                            Container(
+                                              width: 55.0,
+                                              height: 55.0,
+                                              margin: EdgeInsetsDirectional.only(top: 5.0),
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(snapshot.data[index]['fields']['attendImage'].toString()),fit: BoxFit.contain
+                                                ),
+                                              ),
+                                            )
+
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
                             );
                           },
@@ -278,7 +282,7 @@ import 'AttendCreate.dart';
               setState((){});
             });
           },
-          label: Text("원아 등록", style: TextStyle(fontWeight: FontWeight.bold),
+          label: Text("원아등록", style: TextStyle(fontWeight: FontWeight.bold),
           ),
           icon: Icon(Icons.person_add),
           backgroundColor: Color(0xFF7087F0),

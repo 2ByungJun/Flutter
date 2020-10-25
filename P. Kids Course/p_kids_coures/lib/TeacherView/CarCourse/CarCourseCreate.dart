@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -5,6 +7,7 @@ import 'package:kopo/kopo.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
+import '../PageManager.dart';
 
 class CarCourseCreate extends StatefulWidget {
   @override
@@ -13,14 +16,32 @@ class CarCourseCreate extends StatefulWidget {
 
 class _CarCourseCreateState extends State<CarCourseCreate> {
   String adressValue = "여기를 눌러주세요!";
-
+  final _url = PageManagerView.url;
   final TextEditingController name = TextEditingController();
+
+  List carList = [];
+
+  Future<List> fetch() async {
+    http.Response _res = await http.get(_url + "/course");
+    List<dynamic> _resBody = json.decode(_res.body);
+    return _resBody;
+  }
+
+  @override
+  void initState() {
+    Future.microtask(() async {
+      carList = await this.fetch();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Work _work = Provider.of<Work>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("주소지 등록",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: Colors.black),),
+        title: Text("주소지 입력",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: Colors.black),),
         backgroundColor: Colors.white,
         elevation: 0.0,
         centerTitle: true,
@@ -105,12 +126,15 @@ class _CarCourseCreateState extends State<CarCourseCreate> {
               Container(
                 margin: EdgeInsets.all(5.0),
                 child: CupertinoButton(
-                  child: Text("주소지 이름",style: TextStyle( fontSize: 15,color: Colors.white,fontWeight: FontWeight.bold,),),
+                  child: Text("코스 등록",style: TextStyle( fontSize: 15,color: Colors.white,fontWeight: FontWeight.bold,),),
                   color: Colors.deepOrange,
                   onPressed: ()  {
                     http.post( _work.url + '/courseCreate', body: {
                           "Name":name.text,
-                          "Address":adressValue
+                          "Address":adressValue,
+                          "Idx": (carList.length+1).toString(),
+                          "SerialKey":'123',
+                          "Select":'N',
                         });
                     Navigator.of(context).pop();
                   },

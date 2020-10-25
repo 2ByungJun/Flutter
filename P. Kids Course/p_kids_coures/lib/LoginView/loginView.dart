@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
 
               /***** 로고 *****/
               Container(
-                  margin: EdgeInsets.all(20.0),
+                  margin: EdgeInsets.all(10.0),
                   padding: EdgeInsets.all(10.0),
                   width: 200.0,
                   height: 200.0,
@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(100.0),
                       border: Border.all(width: 10.0, color: Colors.orange[300])),
                   child: ClipOval(
-                    child: Image.asset("images/logo.gif", fit: BoxFit.cover),
+                    child: Image.asset("images/logo2.PNG", fit: BoxFit.cover),
                   )
               ),
 

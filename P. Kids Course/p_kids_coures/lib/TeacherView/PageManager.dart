@@ -11,7 +11,7 @@ import 'CarSub/CarSub.dart';
 
 class PageManagerView extends StatefulWidget{
   /// 공통 URL
-  static var url = "http://192.168.123.103:3000";
+  static var url = "http://172.30.1.46:3000";
   @override
   _PageManagerViewState createState() => _PageManagerViewState();
 }
@@ -58,8 +58,8 @@ class _PageManagerViewState extends State<PageManagerView> {
                 title: "코스작성"
             ),
             TabData(
-                iconData: Icons.directions_bus,
-                title: "도착알림"
+                iconData: Icons.message,
+                title: "알림사항"
             )
           ],
           initialSelection: 1,

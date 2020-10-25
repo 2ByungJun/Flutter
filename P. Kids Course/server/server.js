@@ -4,6 +4,13 @@ var Airtable = require('airtable');
 const { randomBytes } = require('crypto');
 var base = new Airtable({apiKey: 'keyjV7S0oqAxwBNzT'}).base('app5cMx6ooOssqpDj');
 
+var admin = require("firebase-admin");
+var serviceAccount = require("./kidscourse-flutter-firebase-adminsdk-savid-33f2dcbddf.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://kidscourse-flutter.firebaseio.com"
+});
+
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
@@ -144,9 +151,20 @@ app.post('/babyCourseSelect', (req, res) => {
 
 app.post('/babyCreate', (req, res) => {
     var data = req.body;
+    var idx = 0;
     console.log(data);
 
-    base('Baby').create({
+    base('Baby').select({
+        // Selecting the first 3 records in Grid view:
+        maxRecords: 50,
+        view: "Grid view"
+    }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            idx++;
+        });
+
+        idx++;
+        base('Baby').create({
             "BabyName": data.BabyName,
             "ParentsName": data.ParentsName,
             "Phone": data.Phone,
@@ -155,13 +173,17 @@ app.post('/babyCreate', (req, res) => {
             "serialKey": "123",
             "AddressIdx": data.AddressIdx,
             "Address": data.Address,
-            "AddressDetail": data.AddressDetail
+            "AddressDetail": data.AddressDetail,
+            "key": "123" + idx.toString()
         }, 
         function(err, records) { 
             if (err) return res.json(false);
         return res.json(true);
+        });
+        fetchNextPage();
+    }, function done(err) {
+        if (err) { console.error(err); return; }
     });
-    return;
 });
 
 app.post('/babyAttend', (req, res) =>{
@@ -292,17 +314,164 @@ base('Baby').select({
 });
 
 app.post('/courseCreate', (req, res) => {
-var data = req.body;
-console.log(data);
+    var data = req.body;
+    var idx = 0;
+    console.log(data);
 
-base('Course').create({
-        "Name": `${data.Name}`,
-        "Address": `${data.Address}`
-    }, 
-    function(err, records) { 
-        if (err) return res.json(false);
-    return res.json(true);
+    base('Course').select({
+        // Selecting the first 3 records in Grid view:
+        maxRecords: 50,
+        view: "Grid view"
+    }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            console.log('Retrieved', record.get('Name'));
+            idx++;
+        });
+        fetchNextPage();
+
+        idx++;
+        base('Course').create({
+            "Name": `${data.Name}`,
+            "Address": `${data.Address}`,
+            "Idx": `${data.Idx}`,
+            "SerialKey": `${data.SerialKey}`,
+            "Select": `${data.Select}`
+        }, 
+        function(err, records) { 
+            if (err) return res.json(false);
+        return res.json(true);
+        });
+
+
+    }, function done(err) {
+        if (err) { console.error(err); return; }
     });
 });
+
+app.post('/courseDelete', (req, res) => {
+    var data = req.body;
+    console.log(data.id);
+
+    base('Course').destroy(data.id, 
+        function(err, deletedRecords) {
+        if (err) res.json(false);
+        return res.json(true);
+        });
+});
+
+app.post('/target', (req, res)=> {
+    console.log('---target실행---')
+    var req = req.body;
+    var fcm_message = {
+        notification : {
+            title : '👩‍👩‍👧‍👦' + req.name.replace(/\"/g,"") +' 도착 메세지',
+            body : '"' + req.name.replace(/\"/g,"") + ' 원아가 도착하였습니다!"'
+        }
+    }
+
+    base('Baby').select({
+        maxRecords: 50,
+        view: "Grid view"
+    }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            if( record.get('BabyName') == req.name.replace(/\"/g,"")){
+                fcm_message.token = record.get('token');
+                admin.messaging().send(fcm_message).then(function(response){
+                    console.log("성공 : " + record.get('token'))
+                }).catch(function(error){
+                    console.log("실패")
+                });
+            }
+        });
+        fetchNextPage();
+    }, function done(err) {
+        if (err) { console.error(err); return; }
+    });
+});
+
+app.post('/login2', (req, res) => {
+    var data = req.body;
+    console.log(data.serialKey);
+
+    base('Baby').select({
+        // Selecting the first 3 records in Grid view:
+        maxRecords: 50,
+        view: "Grid view"
+    }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            if(record.get('key') == data.serialKey){
+                return res.json(true);
+            }
+        });
+        fetchNextPage();
+        return res.json(false);
+    }, function done(err) {
+        if (err) { console.error(err); return; }
+    });
+});
+
+app.post('/message1', (req, res)=> {
+    var req = req.body;
+    var fcm_message = {
+        notification : {
+            title : '🚘❌' + req.name.replace(/\"/g,"") +'원아 차량제외 메세지',
+            body : '"' + req.name.replace(/\"/g,"") + ' 원아는 직접 데리러 오십니다!"'
+        },
+        token : 'dO_x8uOORfSVIdDPn2wBNK:APA91bFpol773_FAM6lgFhLEfMFPz8zNNS9dFtHDfQCIUlffw6Wr7hdBTZbXfejUIW90noz1QtJd0wzGLJooV90x3qAgtYqZQ3Dj5V2sMWYZTJp15epxc83oS5jOik6QCb73h95MU_MH'
+    }
+
+    admin.messaging().send(fcm_message).then(function(response){
+        console.log("성공 : " + response)
+    }).catch(function(error){
+        console.log("실패")
+    });
+});
+
+app.post('/message2', (req, res)=> {
+    var req = req.body;
+    var fcm_message = {
+        notification : {
+            title : '😷' + req.name.replace(/\"/g,"") +'원아 결근 메세지',
+            body : '"' + req.name.replace(/\"/g,"") + ' 원아는 오늘 등원을 못합니다!"'
+        },
+        token : 'dO_x8uOORfSVIdDPn2wBNK:APA91bFpol773_FAM6lgFhLEfMFPz8zNNS9dFtHDfQCIUlffw6Wr7hdBTZbXfejUIW90noz1QtJd0wzGLJooV90x3qAgtYqZQ3Dj5V2sMWYZTJp15epxc83oS5jOik6QCb73h95MU_MH'
+    }
+
+    admin.messaging().send(fcm_message).then(function(response){
+        console.log("성공 : " + response)
+    }).catch(function(error){
+        console.log("실패")
+    });
+});
+
+app.post('/message3', (req, res)=> {
+    var req = req.body;
+    var fcm_message = {
+        notification : {
+            title : '📞' + req.name.replace(/\"/g,"") +'원아 연락 메세지',
+            body : '"' + req.name.replace(/\"/g,"") + ' 원아의 학부모님이 따로 연락을 원하십니다!"'
+        },
+        token : 'dO_x8uOORfSVIdDPn2wBNK:APA91bFpol773_FAM6lgFhLEfMFPz8zNNS9dFtHDfQCIUlffw6Wr7hdBTZbXfejUIW90noz1QtJd0wzGLJooV90x3qAgtYqZQ3Dj5V2sMWYZTJp15epxc83oS5jOik6QCb73h95MU_MH'
+    }
+
+    admin.messaging().send(fcm_message).then(function(response){
+        console.log("성공 : " + response)
+    }).catch(function(error){
+        console.log("실패")
+    });
+});
+
+app.get('/fcmList', (req, res)=> {
+    base('FCM')
+    .select({maxRecords: 50, view: "Grid view"})
+    .eachPage(function page(records, fetchNextPage) {
+            return res.json(records);
+    }, function done(err) {
+        if (err) {
+            return res.json([]);
+        }
+    });
+});
+
 
 app.listen(3000);

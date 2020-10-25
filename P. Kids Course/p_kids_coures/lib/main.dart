@@ -8,7 +8,7 @@ void main() => runApp(MultiProvider(
       ChangeNotifierProvider<Work>(create: (_) => new Work()),
     ],
     child: MaterialApp(
-      home: LoginView(),
+      home: LoginView(), debugShowCheckedModeBanner: false
     ),
   ));
 
@@ -42,7 +42,7 @@ class LoginCheck extends StatelessWidget {
 
 class Work with ChangeNotifier {
   bool value = true;
-  get url => "http://192.168.123.103:3000";
+  get url => "http://172.30.1.46:3000";
 
   Future<bool> check() async {
     return this.value;

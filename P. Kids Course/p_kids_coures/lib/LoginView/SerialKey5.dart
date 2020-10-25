@@ -43,7 +43,7 @@ class SerialKey5 extends StatelessWidget {
                   margin: EdgeInsetsDirectional.only(top:20),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/logo.gif'),
+                          image: AssetImage('images/logo2.PNG'),
                           fit: BoxFit.contain
                       )
 
