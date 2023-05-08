@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   firebase_messaging: ^6.0.16
   vibration: ^1.4.0
-  http: ^0.12.1
+  http: ^0.13.6
 
 
 dev_dependencies:
